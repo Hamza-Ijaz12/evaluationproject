@@ -1,0 +1,42 @@
+{% extends 'base.html' %} 
+{% block content %}
+    <h1>Cohort assign</h1>
+    <h3> Assign task to Student</h3>
+    <br><br>
+    <div>
+      <h2>Assign Task to Indiviual students</h2>
+      <br>
+      <form method="post" action="">
+        {% csrf_token %}
+        <input type="text" hidden name="type" value="id">
+        <select name="student_assign" id="">
+            <option value="">----- Select Student -----</option>
+            {% for student in students %}
+            <option value="{{student.id}}">{{student.email}}</option>
+            {% endfor %}
+            
+           
+        </select>
+        <button type="submit">Assign</button>
+        <br><br>
+        <h2>Assign Task to whole class</h2>
+        <br>
+      </form>
+      <form method="post" action="">
+        {% csrf_token %}
+        <input type="text" hidden name="type" value="class">
+        <select name="class_assign" id="">
+            <option value="">----- Select Student -----</option>
+            {% for cohort in cohorts %}
+            <option value="{{cohort.id}}">{{cohort.classname}}</option>
+            {% endfor %}
+            
+           
+        </select>
+        <button type="submit">Assign</button>
+        
+       
+      </form>
+    </div>
+
+    {% endblock %}

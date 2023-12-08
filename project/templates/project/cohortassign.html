@@ -1,0 +1,22 @@
+{% extends 'base.html' %} 
+{% block content %}
+    <h1>Cohort assign</h1>
+    <h3> Assign Students to {{cohort.classname}}</h3>
+    <br><br>
+    <div>
+      <form method="post" action="{% url 'assign_cohort' cohort.id %}">
+        {% csrf_token %}
+        <select name="student_assign" id="">
+            <option value="">----- Select Student -----</option>
+            {% for student in students %}
+            <option value="{{student.id}}">{{student.email}}</option>
+            {% endfor %}
+            
+           
+        </select>
+        <button type="submit">Assign</button>
+       
+      </form>
+    </div>
+
+    {% endblock %}

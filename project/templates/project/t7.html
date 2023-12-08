@@ -1,0 +1,16 @@
+{% extends 'base.html' %} 
+{% block content %}
+<h1>Fill in the Blanks Quesiton Creation</h1>
+
+<br>
+<hr>
+<p>In task_name Field add task Desicription
+    <br></p>
+
+<form method="post" action="">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Create"/>
+</form>
+
+{% endblock %}

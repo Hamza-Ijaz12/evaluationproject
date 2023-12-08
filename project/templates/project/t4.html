@@ -1,0 +1,21 @@
+{% extends 'base.html' %} 
+{% block content %}
+<h1>Fill in the Blanks Question Creation</h1>
+
+<br>
+<hr>
+<p>In task_name Field add task Desicription
+    <br>While filling in answer filed type numbers seprated by commas like 3,2,1,4 which will mean audio1 should match 3rd word/option, 
+    audio2 should match 2, audio3 should be 1 word/option and 4th should match fourth.
+</p><br>
+
+<form method="post" action="" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+   
+
+    <input type="submit" value="Create"/>
+</form>
+
+{% endblock %}

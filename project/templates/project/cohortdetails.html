@@ -1,0 +1,17 @@
+{% extends 'base.html' %} 
+{% block content %}
+    <h1>Cohort Details</h1>
+    <h2>{{cohort.classname}}</h2><br>
+    <a href="{% url 'assign_cohort' cohort.id  %}">Assign Cohort</a> <br><br>
+    <a href="{% url 'lessoncreate' cohort.id  %}">Create Lesson</a> <br><br>
+
+    <br><br><hr>
+    {% for lesson in lessons %}
+    <a href="{% url 'lesson_details' lesson.id %}"><h3>{{lesson.lesson_name}}</h3></a>
+    <a href="{% url 'lessondelete' lesson.id %}">delete</a><br>
+    <a href="{% url 'lessonedit' lesson.id %}">edit</a>
+    {% endfor %}
+
+
+    
+    {% endblock %}
