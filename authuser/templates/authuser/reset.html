@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Reset Your Password</h1>
+    <br><br>
+    {% if messages %}
+    <h4>{{messages}}</h4>
+    <br>
+    {% endif %}
+    <form method="post" action="{% url 'reset' %}">
+        {% csrf_token %}
+        <label for="password1">Password</label>
+        <input type="password" name="password1">
+        <br>
+        <label for="password2">Confirm Password</label>
+        <input type="password" name="password2">
+        <br><br>
+        <button type="submit">Submit</button>
+
+    </form>
+</body>
+</html>
