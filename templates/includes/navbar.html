@@ -1,0 +1,133 @@
+{% load static %}
+
+<nav class="sidebar vertical-scroll  ps-container ps-theme-default ps-active-y">
+    <div class="logo d-flex justify-content-between">
+    <a href="{% url 'home' %}"><img src="{% static 'img/lurgan.png' %}" alt=""></a>
+    <div class="sidebar_close_icon d-lg-none">
+    <i class="ti-close"></i>
+    </div>
+    </div>
+    <ul id="sidebar_menu">
+    <li class="mm-active">
+    <a class="" href="{% url 'home' %}" aria-expanded="false">
+    <div class="icon_menu">
+    <img src="{% static 'img/menu-icon/dashboard.svg' %}" alt="">
+    </div>
+    <span>Dashboard</span>
+    </a>
+    </li>   
+   
+    {% if user.is_authenticated %}
+    <li class="mm-active">
+    <a class="" href="{% url 'logout' %}" aria-expanded="false">
+    <div class="icon_menu">
+    <img src="{% static 'img/menu-icon/16.svg' %}" alt="">
+    </div>
+    <span>Logout</span>
+    </a>
+    
+    </li>
+    {% if user.role == 'admin' or user.role == 'teacher' %}
+    <li class="mm-active">
+        <a class="" href="{% url 'studentregister' %}" aria-expanded="false">
+        <div class="icon_menu">
+        <img src="{% static 'img/menu-icon/16.svg' %}" alt="">
+        </div>
+        <span>Register Students</span>
+        </a>
+        
+    </li>
+
+    {% endif%}
+
+    {% if user.role == 'teacher' or user.role == 'admin' %}
+    <li class="mm-active">
+        <a class="" href="{% url 'alluser' %}" aria-expanded="false">
+        <div class="icon_menu">
+        <img src="{% static 'img/menu-icon/16.svg' %}" alt="">
+        </div>
+        <span>All Users</span>
+        </a>
+        
+        </li>
+   
+
+
+    <li class="mm-active">
+        <a class="" href="{% url 'cohorts_list' %}" aria-expanded="false">
+        <div class="icon_menu">
+        <img src="{% static 'img/menu-icon/16.svg' %}" alt="">
+        </div>
+        <span>Classes</span>
+        </a>
+        
+        </li>
+    <li class="mm-active">
+    <a class="" href="{% url 'create_class' %}" aria-expanded="false">
+    <div class="icon_menu">
+    <img src="{% static 'img/menu-icon/16.svg' %}" alt="">
+    </div>
+    <span>Create Class</span>
+    </a>
+    
+    </li>
+    <li class="mm-active">
+        <a class="" href="{% url 'questionsRGB' %}" aria-expanded="false">
+        <div class="icon_menu">
+        <img src="{% static 'img/menu-icon/16.svg' %}" alt="">
+        </div>
+        <span>Question Categories</span>
+        </a>
+        
+        </li>
+    
+    {% endif%}
+    {% if page == 'ls_show' %}
+    <li class="">
+        <a class="has-arrow" href="#" aria-expanded="false">
+        <div class="icon_menu">
+        <img src="{% static 'img/menu-icon/16.svg' %}" alt="">
+        </div>
+        <span>{{cohort_name.classname}}</span>
+        </a>
+        <ul>
+        {% for lesson in lessons_cohort %}
+        <li><a href="{% url 'lesson_details' lesson.id %}">{{lesson.lesson_name}} </a></li>
+        {% endfor %}
+        
+        </ul>
+        </li>
+        {% endif%}
+    {% else %}
+    <li class="mm-active">
+        <a class="" href="{% url 'login' %}" aria-expanded="false">
+        <div class="icon_menu">
+        <img src="{% static 'img/menu-icon/16.svg' %}" alt="">
+        </div>
+        <span>Login</span>
+        </a>
+        
+        </li>
+        <li class="mm-active">
+            <a class="" href="{% url 'register' %}" aria-expanded="false">
+            <div class="icon_menu">
+            <img src="{% static 'img/menu-icon/16.svg' %}" alt="">
+            </div>
+            <span>Register</span>
+            </a>
+            
+            </li>
+            <li class="mm-active">
+                <a class="" href="{% url 'password-reset' %}" aria-expanded="false">
+                <div class="icon_menu">
+                <img src="{% static 'img/menu-icon/16.svg' %}" alt="">
+                </div>
+                <span>Forgot Password</span>
+                </a>
+                
+                </li>
+    
+
+{% endif%}
+    </ul>
+    </nav>

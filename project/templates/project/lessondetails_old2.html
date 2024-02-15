@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <section class="main_content dashboard_part large_header_bg">
+
+       {% include 'includes/topbar.html' %}
+
+        <div class="main_content_iner ">
+            <div class="container-fluid p-0">
+                <div class="row justify-content-center">
+                    <div class="col-12">
+                        <div class="dashboard_header mb_50">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="dashboard_header_title">
+                                        <h3>Lesson Details</h3>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="dashboard_breadcam text-end">
+                                        <p><a href="{% url 'home' %}">Dashboard</a> <i class="fas fa-caret-right"></i> Lesson Details
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="white_box mb_30">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-6">
+
+                                    <div class="modal-content cs_modal">
+                                        <div class="modal-header justify-content-center theme_bg_1">
+                                            <h5 class="modal-title text_white">{{lesson.lesson_name}}</h5>
+                                        </div>
+                                        {% if user.role == 'teacher' %}
+                                        <div class="modal-body text-center ">
+                                          
+
+                                              
+                                                   
+                                                <form method="post" action="{% url 'lesson_details' lesson.id %}">
+                                                    {% csrf_token %}
+                                                    <div class="">
+                                                    <select name="task_type" id="" class="select_assign">
+                                                        <option value="">---- Task Type ----</option>
+                                                        <option value="T1">Matching 4 audio clips to images</option>
+                                                        <option value="T2">Matching 4 audio files to 4 audio files</option>
+                                                        <option value="T3">Pick 1 of 4 audio for 1 image</option>
+                                                        <option value="T4">Audio to correct word</option>
+                                                        <option value="T5">Eliminate images based on sounds</option>
+                                                        <option value="T6">Arranging audio segments in order</option>
+                                                        <option value="T7">Fill in the Blank</option>
+                                                        <option value="T8">Correct Spelling</option>
+                                                
+                                                    </select>
+                                                </div>
+                                                    <button type="submit" class="btn_1 full_width text-center">Create Task</button>
+                                                </form>
+                                                </div>
+                                                {% endif%}
+                                           
+                                               
+                                           
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ==== -->
+                        <div class="white_box">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-10">
+                                    <div class="card_box box_shadow position-relative mb_30">
+                                    <div class="white_box_tittle ">
+                                    <div class="main-title2 ">
+                                    <h4 class="mb-2 nowrap">Tasks</h4>
+                                    
+                                    </div>
+                                    </div>
+                                    <div class="box_body">
+                                    <div class="default-according" id="accordion">
+                                    
+                                        {% for task in all_tasks_with_model %}
+                                    {% with taskmodel=task.model %}
+                                        {% for t in task.task %}
+                                        <div class="card">
+                                    <div class="card-header" id="headingOne">
+                                    
+                                    
+                                    <div class="d-flex justify-content-between align-items-center mx-3">
+                                        <div>
+
+                                        
+
+                                        
+                                    <h5 class="mb-0">
+                                        <p class="btn  collapsed" href="" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                            {{ t.task_name }}</p>
+                                    </h5>
+                                    {% if user.role == 'teacher' %}
+                                    <div class="ms-3 d-flex">
+                                        <form method="post" action="{% url 'task_edit' lesson.id %}" >
+                                            {% csrf_token %}
+                                            <input type="text" hidden name="id"  value="{{ t.id }}">
+                                            <input type="text" hidden name="model"  value="{{ taskmodel }}">
+                                            <button style="border: 0px;background-color: transparent;"><i class="fas fa-edit"></i></button>
+                                        </form>
+                                        <form method="post" action="{% url 'delete_task' %}" class="mx-3">
+                                            {% csrf_token %}
+                                            <input type="text" hidden name="id"  value="{{ t.id }}">
+                                            <input type="text" hidden name="model"  value="{{ taskmodel }}">
+                                            <button style="border: 0px;background-color: transparent;"><i class="ti-trash"></i></button>
+                                        </form>
+                                        <form method="post" action="{% url 'assign_task1' lesson.id %}">
+                                            {% csrf_token %}
+                                            <input type="text" hidden name="id"  value="{{ t.id }}">
+                                            <input type="text" hidden name="model"  value="{{ taskmodel }}">
+                                            <button style="border: 0px;background-color: transparent;"><i class="ti-link"></i></button>
+                                        </form>
+                                    </div>
+                                    {% endif%}
+                                    </div>
+                                    <div>
+                                        <form method="post" action="{% url 'attempt' lesson.id %}">
+                                            {% csrf_token %}
+                                            <input type="text"  name="id"  value="{{ t.id }}">
+                                            <input type="text"  name="model"  value="{{ taskmodel }}">
+                                            <button class="btn_1 full_width text-center">Attempt</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                    </div> 
+                                    </div>
+                                    {% endfor %}
+                                    {% endwith %}
+                                {% endfor %}
+                                   
+
+                                    </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                            </div>
+                        </div>
+                        
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% endblock %}

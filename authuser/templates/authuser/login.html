@@ -1,61 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        input{
-            height: 20px;
-            width: 300px;
-            margin: 10px 20px;
-        }
-        .card{
-            height: 100px;
-            width: 600px;
-            margin: auto;
-        }
-        button{
-            margin: 20px;
-        }
 
-    </style>
-</head>
-<body>
-    
-    <div class="card">
-        {% if messages %}
-    <h4>{{messages}}</h4>
-    <br>
-    {% endif %}
-       
-    </div>
-    {% if page == 'login' %}
-    <div>
-        <form method="post" action="{% url 'login' %}">
-            {% csrf_token %}
-            <input type="email" name="email" placeholder="Email ..."> <br>
-            <input type="password" name="password" >
-            <br>
-            <button type="submit">Login</button>
-        </form>
-       
-        <br><br>
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
 
-        <p>haven't singup yet?</p>
-        <a href="{% url 'register' %}">Sign up</a>
-    </div>
-    {% else %}
-    <div>
-        <form method="post" action="{% url 'register' %}">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="Register"/>
-        </form>
-        <p>Alrady a user?</p>
-        <a href="{% url 'login' %}">Login</a>
-    </div>
-    
-    {% endif %}
-</body>
-</html>
+    <section class="main_content dashboard_part large_header_bg">
+
+        {% include 'includes/topbar.html' %}
+        
+        <div class="main_content_iner ">
+            <div class="container-fluid p-0">
+                <div class="row justify-content-center">
+                    <div class="col-12">
+                        <div class="dashboard_header mb_50">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="dashboard_header_title">
+                                        <h3>Login</h3>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="dashboard_breadcam text-end">
+                                        <p><a href="{% url 'home' %}">Dashboard</a> <i class="fas fa-caret-right"></i> login
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="white_box mb_30">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-6">
+
+                                    <div class="modal-content cs_modal">
+                                        <div class="modal-header justify-content-center theme_bg_1">
+                                            <h5 class="modal-title text_white">Log in</h5>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="post" action="{% url 'login' %}">
+                                                {% csrf_token %}
+                                                <div class="">
+                                                    <input type="text" name="email" class="form-control"
+                                                        placeholder="Enter your email">
+                                                </div>
+                                                <div class="">
+                                                    <input type="password" name="password" class="form-control" placeholder="Password">
+                                                </div>
+                                                <button type="submit" href="#" class="btn_1 full_width text-center">Log in</button>
+                                                <p>Need an account? <a data-bs-toggle="modal" data-bs-target="#sing_up"
+                                                        data-bs-dismiss="modal" href="{% url 'register' %}"> Sign Up</a></p>
+                                                <div class="text-center">
+                                                    <a href="{% url 'password-reset' %}" data-bs-toggle="modal" data-bs-target="#forgot_password"
+                                                        data-bs-dismiss="modal" class="pass_forget_btn">Forget
+                                                        Password?</a>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% endblock %}

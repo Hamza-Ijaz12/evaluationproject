@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <section class="main_content dashboard_part large_header_bg">
+
+       {% include 'includes/topbar.html' %}
+
+        <div class="main_content_iner ">
+            <div class="container-fluid p-0">
+                <div class="row justify-content-center">
+                    <div class="col-12">
+                        <div class="dashboard_header mb_50">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="dashboard_header_title">
+                                        <h3>Task Create</h3>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="dashboard_breadcam text-end">
+                                        <p><a href="{% url 'home' %}">Dashboard</a> <i class="fas fa-caret-right"></i> Task Create
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="white_box mb_30">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-6">
+
+                                    <div class="modal-content cs_modal">
+                                        <div class="modal-header justify-content-center theme_bg_1">
+                                            <h5 class="modal-title text_white">Speech recognition </h5>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p style="text-align: start;">Add up to 3 samples of audio files to be compared to. Add the text as is heard in the sound files. </p>
+                                            <form method="post" action="" enctype="multipart/form-data">
+                                                {% csrf_token %}
+                                                {{ form.as_p }}
+                                                
+                                                
+                                              
+                                                <button type="submit" href="#" class="btn_1 full_width text-center">Submit</button>
+                                                
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% endblock %}

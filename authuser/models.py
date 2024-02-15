@@ -10,7 +10,9 @@ from django.contrib.auth.tokens import default_token_generator
 
 # Models start here
 
-
+def user_directory_path(instance, filename):
+    # File will be uploaded to MEDIA_ROOT/profiles/user_<id>/<filename>
+    return f"profiles/user_{instance.id}/{filename}"
 
 class User(AbstractBaseUser,PermissionsMixin):
     # basic information
@@ -18,6 +20,8 @@ class User(AbstractBaseUser,PermissionsMixin):
     username = models.CharField(max_length=255,blank=True)
     address = models.CharField(max_length=255,blank=True)
     phone_number = models.CharField(max_length=255,blank=True,default='')
+    # profile image
+    avatar = models.ImageField(null=True,default='profile/avatar.png',upload_to=user_directory_path)
 
     #Choices
     ROLE_CHOICES = (

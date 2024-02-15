@@ -1,0 +1,53 @@
+{% extends 'base.html' %} 
+{% block content %}
+<h1>Lesson Details</h1>
+<h3>{{lesson.lesson_name}}</h3>
+<br>
+<form method="post" action="{% url 'lesson_details' lesson.id %}">
+    {% csrf_token %}
+    <select name="task_type" id="">
+        <option value="">---- Task Type ----</option>
+        <option value="T1">Matching 4 audio clips to images</option>
+        <option value="T2">Matching 4 audio files to 4 audio files</option>
+        <option value="T3">Pick 1 of 4 audio for 1 image</option>
+        <option value="T4">Audio to correct word</option>
+        <option value="T5">Eliminate images based on sounds</option>
+        <option value="T6">Arranging audio segments in order</option>
+        <option value="T7">Fill in the Blank</option>
+        <option value="T8">Correct Spelling</option>
+
+    </select>
+    <button type="submit">Create Task</button>
+</form>
+<hr>
+
+<div>
+    {% for task in all_tasks_with_model %}
+    {% with taskmodel=task.model %}
+        {% for t in task.task %}
+            <h4>{{ t.task_name }}</h4>
+            <form method="post" action="{% url 'task_edit' lesson.id %}">
+                {% csrf_token %}
+                <input type="text" hidden name="id"  value="{{ t.id }}">
+                <input type="text" hidden name="model"  value="{{ taskmodel }}">
+                <button>edit</button>
+            </form>
+            <form method="post" action="{% url 'delete_task' %}">
+                {% csrf_token %}
+                <input type="text" hidden name="id"  value="{{ t.id }}">
+                <input type="text" hidden name="model"  value="{{ taskmodel }}">
+                <button>delete</button>
+            </form>
+            <form method="post" action="{% url 'assign_task1' lesson.id %}">
+                {% csrf_token %}
+                <input type="text" hidden name="id"  value="{{ t.id }}">
+                <input type="text" hidden name="model"  value="{{ taskmodel }}">
+                <button>assign</button>
+            </form>
+        {% endfor %}
+    {% endwith %}
+{% endfor %}
+
+</div>
+
+{% endblock %}

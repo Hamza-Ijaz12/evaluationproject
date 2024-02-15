@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <section class="main_content dashboard_part large_header_bg">
+
+       {% include 'includes/topbar.html' %}
+
+        <div class="main_content_iner ">
+            <div class="container-fluid p-0">
+                <div class="row justify-content-center">
+                    <div class="col-12">
+                        <div class="dashboard_header mb_50">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="dashboard_header_title">
+                                        <h3>Spelling Question</h3>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="dashboard_breadcam text-end">
+                                        <p><a href="{% url 'home' %}">Dashboard</a> <i class="fas fa-caret-right"></i> Task Attempt
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="white_box mb_30">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-10">
+
+                                    <div class="modal-content cs_modal">
+                                        <div class="modal-header justify-content-center theme_bg_1">
+                                            <h5 class="modal-title text_white">{{task.task_name}}</h5>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="textleft"> <h6> Instructions:</h6>You should Write number like 1 3 in correct answer box and submit</p>
+                                            
+                                            <p class="textleft"><h6>Question:</h6>Students arrange audio segments in the correct order.</p>
+                                            <p class="textleft">Audio 1</p>
+                                            <audio controls>
+                                                <source src="{{ task.audio1.url }}" type="audio/ogg">
+                                                <!-- <source src="horse.mp3" type="audio/mpeg"> -->
+                                                Your browser does not support the audio element.
+                                            </audio>
+                                            <p class="textleft">Audio 2</p>
+                                            <audio controls>
+                                                <source src="{{ task.audio2.url }}" type="audio/ogg">
+                                                <!-- <source src="horse.mp3" type="audio/mpeg"> -->
+                                                Your browser does not support the audio element.
+                                            </audio>
+                                            <p class="textleft">Audio 3</p>
+                                            <audio controls>
+                                                <source src="{{ task.audio3.url }}" type="audio/ogg">
+                                                <!-- <source src="horse.mp3" type="audio/mpeg"> -->
+                                                Your browser does not support the audio element.
+                                            </audio>
+                                            <p class="textleft">Audio 4</p>
+                                            <audio controls>
+                                                <source src="{{ task.audio4.url }}" type="audio/ogg">
+                                                <!-- <source src="horse.mp3" type="audio/mpeg"> -->
+                                              Your browser does not support the audio element.
+                                              </audio>
+                                              
+                                              <br><br>
+                                            <form method="post" action="">
+                                                {% csrf_token %}
+                                                <label for="answer"><b>Answer</b></label>
+                                                <div class="mt-2">
+                                                    <input type="text" name="answer1" class="form-control answer"
+                                                        placeholder="Audio1 order should be">
+                                                </div>
+                                                <div class="mt-2">
+                                                    <input type="text" name="answer2" class="form-control answer"
+                                                        placeholder="Audio2 order should be">
+                                                </div>
+                                                <div class="mt-2">
+                                                    <input type="text" name="answer3" class="form-control answer"
+                                                        placeholder="Audio3 order should be">
+                                                </div>
+                                                <div class="mt-2">
+                                                    <input type="text" name="answer4" class="form-control answer"
+                                                        placeholder="Audio4 order should be">
+                                                </div>
+                                               
+                                                
+                                                
+                                              
+                                                <button class="btn_1 full_width text-center">Submit</button>
+                                                
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% endblock %}

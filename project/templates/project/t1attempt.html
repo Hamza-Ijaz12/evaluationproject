@@ -1,0 +1,333 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <section class="main_content dashboard_part large_header_bg">
+
+       {% include 'includes/topbar.html' %}
+
+        <div class="main_content_iner ">
+            <div class="container-fluid p-0">
+                <div class="row justify-content-center">
+                    <div class="col-12">
+                        <div class="dashboard_header mb_50">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="dashboard_header_title">
+                                        <h3>Spelling Question</h3>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="dashboard_breadcam text-end">
+                                        <p><a href="{% url 'home' %}">Dashboard</a> <i class="fas fa-caret-right"></i> Task Attempt
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="white_box mb_30">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-12">
+
+                                    <div class="modal-content cs_modal">
+                                        <div class="modal-header justify-content-center theme_bg_1">
+                                            <h5 class="modal-title text_white">{{task.task_name}}</h5>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="textleft"> <h6> Instructions - This is what im editing:</h6>You should Write number like 1 3 in correct answer box and submit</p>
+                                            
+                                            <p class="textleft"><h6>Question:</h6>Students eliminate images based on the sounds they hear.</p>
+                                            <div class="row no-gutters">
+                                                <div class="col-4">
+                                                    <p class="textleft mb-2">Audio 1</p>
+                                                    <audio id="audio1" controls draggable="true" ondragstart="drag(event)">
+                                                        <source src="{{ task.audio1.url }}" type="audio/ogg">
+                                                        <!-- <source src="horse.mp3" type="audio/mpeg"> -->
+                                                        Your browser does not support the audio element.
+                                                    </audio>
+                                                    <br>
+                                                    <p class="textleft mb-2">Audio 2</p>
+                                                    <audio id="audio2" controls draggable="true" ondragstart="drag(event)">
+                                                        <source src="{{ task.audio2.url }}" type="audio/ogg">
+                                                        <!-- <source src="horse.mp3" type="audio/mpeg"> -->
+                                                        Your browser does not support the audio element.
+                                                    </audio>
+                                                    <br>
+                                                    <p class="textleft mb-2">Audio 3</p>
+                                                    <audio id="audio3" controls draggable="true" ondragstart="drag(event)">
+                                                        <source src="{{ task.audio3.url }}" type="audio/ogg">
+                                                        <!-- <source src="horse.mp3" type="audio/mpeg"> -->
+                                                        Your browser does not support the audio element.
+                                                    </audio>
+                                                    <br>
+                                                    <p class="textleft mb-2">Audio 4</p>
+                                                    <audio id="audio4" controls draggable="true" ondragstart="drag(event)">
+                                                        <source src="{{ task.audio4.url }}" type="audio/ogg">
+                                                        <!-- <source src="horse.mp3" type="audio/mpeg"> -->
+                                                        Your browser does not support the audio element.
+                                                    </audio>
+    
+                                                </div>
+                                                <div class="col-8">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <p class="textleft">Image 1</p>
+                                                            <div class="imgsize">
+                                                                <img src="{{ task.opt_image1.url }}" alt="image1 of question type 5">
+                                                            </div>
+                                                            <div id="drop1" style="width: 300px; height: 70px;border: 1px solid #aaaaaa; border-radius: 1em;" ondrop="drop(event)" ondragover="allowDrop(event)">
+        
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <p class="textleft">Image 2</p>
+                                                            <div class="imgsize">
+                                                                <img src="{{ task.opt_image2.url }}" alt="image2 of question type 5">
+                                                            </div>
+                                                            <div id="drop2" style="width: 300px; height: 70px;border: 1px solid #aaaaaa; border-radius: 1em;" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <p class="textleft">Image 3</p>
+                                                            <div class="imgsize">
+                                                                <img src="{{ task.opt_image3.url }}" alt="image3 of question type 5">
+                                                            </div>
+                                                            <div id="drop3" style="width: 300px; height: 70px;border: 1px solid #aaaaaa; border-radius: 1em;" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <p class="textleft">Image 4</p>
+                                                            <div class="imgsize">
+                                                                <img  src="{{ task.opt_image4.url }}" alt="image4 of question type 5">
+                                                            </div>
+                                                            <div id="drop4" style="width: 300px; height: 70px;border: 1px solid #aaaaaa; border-radius: 1em;" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                        </div>
+                                        <!--
+                                        <div class="modal-body">
+                                            
+                                                
+                                                    
+                                                        
+                                                  
+                                                        
+                                                    
+                                                    
+                                                    
+                                            </div>
+                                            <div class="row">
+                                            <div class="col-6 col-md-6 col-sm-12" >
+
+                                                <p class="textleft mb-2">Audio 1</p>
+                                                <audio id="audio1" controls draggable="true" ondragstart="drag(event)">
+                                                    <source src="{{ task.audio1.url }}" type="audio/ogg">
+                                                    <source src="horse.mp3" type="audio/mpeg">
+                                                    Your browser does not support the audio element.
+                                                </audio>
+                                            </div>
+                                            <div class="col-6 col-md-6 col-sm-12">
+
+                                                <p class="textleft mb-2">Audio 2</p>
+                                                <audio id="audio2" controls draggable="true" ondragstart="drag(event)">
+                                                    <source src="{{ task.audio2.url }}" type="audio/ogg">
+                                                    <source src="horse.mp3" type="audio/mpeg">
+                                                    Your browser does not support the audio element.
+                                                </audio>
+                                            </div>
+                                            <div class="col-6 col-md-6 col-sm-12">
+
+                                                <p class="textleft mb-2">Audio 3</p>
+                                                <audio id="audio3" controls draggable="true" ondragstart="drag(event)">
+                                                    <source src="{{ task.audio3.url }}" type="audio/ogg">
+                                                    <source src="horse.mp3" type="audio/mpeg">
+                                                    Your browser does not support the audio element.
+                                                </audio>
+                                            </div>
+                                            <div class="col-6 col-md-6 col-sm-12">
+
+                                                <p class="textleft mb-2">Audio 4</p>
+                                                <audio id="audio4" controls draggable="true" ondragstart="drag(event)">
+                                                    <source src="{{ task.audio4.url }}" type="audio/ogg">
+                                                    <source src="horse.mp3" type="audio/mpeg">
+                                                    Your browser does not support the audio element.
+                                                </audio>
+                                            </div>
+                                           
+                                            </div>
+                                            +++++++++++
+                                            <h5 class="mt-3">Option Images</h5>
+                                            <div class="row">
+                                                <div class="col-6 col-md-6 col-sm-12">
+    
+                                                    <p class="textleft">Image 1</p>
+                                                    <div class="imgsize">
+                                                        <img src="{{ task.opt_image1.url }}" alt="image1 of question type 5">
+                                                    </div>
+                                                    <div id="drop1" style="width: 300px; height: 70px;border: 1px solid #aaaaaa; border-radius: 1em;" ondrop="drop(event)" ondragover="allowDrop(event)">
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-6 col-md-6 col-sm-12">
+                                                <p class="textleft">Image 2</p>
+                                                <div class="imgsize">
+                                                    <img src="{{ task.opt_image2.url }}" alt="image2 of question type 5">
+                                                </div>
+                                                <div id="drop2" style="width: 300px; height: 70px;border: 1px solid #aaaaaa; border-radius: 1em;" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                                                </div>
+                                                <div class="col-6 col-md-6 col-sm-12">
+                                                <p class="textleft">Image 3</p>
+                                                <div class="imgsize">
+                                                    <img src="{{ task.opt_image3.url }}" alt="image3 of question type 5">
+                                                </div>
+                                                <div id="drop3" style="width: 300px; height: 70px;border: 1px solid #aaaaaa; border-radius: 1em;" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                                                </div>
+                                                <div class="col-6 col-md-6 col-sm-12">
+                                                <p class="textleft">Image 4</p>
+                                                <div class="imgsize">
+                                                    <img  src="{{ task.opt_image4.url }}" alt="image4 of question type 5">
+                                                </div>
+                                                <div id="drop4" style="width: 300px; height: 70px;border: 1px solid #aaaaaa; border-radius: 1em;" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                                                </div>
+                                                </div>
+                                               -->
+                                              <br><br>
+                                            <form method="post" action="" id="myForm">
+                                                {% csrf_token %}
+                                                <!-- <label for="answer"><b>Answer</b></label> -->
+                                                <div class="row">
+                                                    
+
+                                                    
+                                                <div class="mt-2 col-6 col-md-6 col-sm-12">
+                                                    <input hideen id="answer1" type="text" name="answer1" class="form-control answer"
+                                                        placeholder="Audio1 should match Option image number...">
+                                                </div>
+                                                <div class="mt-2 col-6 col-md-6 col-sm-12">
+                                                    <input hideen id="answer2" type="text" name="answer2" class="form-control answer"
+                                                        placeholder="Audio2 should match Option image number...">
+                                                </div>
+                                                <div class="mt-2 col-6 col-md-6 col-sm-12">
+                                                    <input hideen id="answer3" type="text" name="answer3" class="form-control answer"
+                                                        placeholder="Audio3 should match Option image number...">
+                                                </div>
+                                                <div class="mt-2 col-6 col-md-6 col-sm-12">
+                                                    <input hideen id="answer4" type="text" name="answer4" class="form-control answer"
+                                                        placeholder="Audio4 should match Option image number...">
+                                                </div>
+                                                    
+                                                </div>
+                                                    
+                                                
+                                                
+                                              
+                                                <button hidden type="submit" href="#" class="btn_1 full_width text-center">Submit</button>
+                                                
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            function allowDrop(ev) {
+              ev.preventDefault();
+            }
+            
+            function drag(ev) {
+              ev.dataTransfer.setData("text", ev.target.id);
+              
+            }
+            
+            function drop(ev) {
+                ev.preventDefault();
+                var data = ev.dataTransfer.getData("text");
+                ev.target.appendChild(document.getElementById(data));
+
+                var audioElement = document.getElementById(data);
+                console.log(audioElement.id.charAt(audioElement.id.length - 1));
+
+                // Get the dropzone where the audio was dropped
+                var dropzone = event.target;
+                console.log(dropzone.id.charAt(dropzone.id.length - 1));
+                // dropzone.appendChild(audioElement);
+
+                // Store the association between dropzone and audioElement (you can use a hidden input field)
+                var hiddenInput = document.getElementById("answer"+dropzone.id.charAt(dropzone.id.length - 1));
+                // hiddenInput.type = "hidden";
+                // hiddenInput.name = "audioMappings[]"; // Use an array to store multiple mappings
+                hiddenInput.value = audioElement.id.charAt(audioElement.id.length - 1);
+                hiddenInput.dispatchEvent(new Event('input'));
+                // document.forms[0].appendChild(hiddenInput);
+              
+            }
+            </script>
+            <!-- MOdified by Hamza -->
+            <script>
+               function setupInputListeners() {
+                    // Get all input elements with class 'answer'
+                    var inputs = document.querySelectorAll('.answer');
+
+                    // Print a message to the console
+                    console.log('Found ' + inputs.length + ' input elements with class "answer"');
+
+                    // Attach 'input' event listener to each input
+                    inputs.forEach(function (input) {
+                        input.addEventListener('input', inputChangeListener);
+                    });
+                }
+
+                function inputChangeListener() {
+                    // Print a message to the console when an input changes
+                    console.log('Input changed:', this.value);
+
+                    // Check if all inputs have values
+                    var allFilled = Array.from(document.querySelectorAll('.answer')).every(function (input) {
+                        return input.value.trim() !== '';
+                    });
+
+                    // If all inputs are filled, submit the form
+                    if (allFilled) {
+                        submitForm();
+                    }
+                }
+
+                function submitForm() {
+                    console.log('Submitting the form');
+                    document.getElementById('myForm').submit();  // Submit the form
+                }
+
+                // Call the setup function to start the process
+                setupInputListeners();
+            </script>
+            <!-- Modified by hamza end -->
+
+            <!-- orignal -->
+            <!-- <script>
+                // Get all input elements with class 'answer'
+                var inputs = document.querySelectorAll('.answer');
+                console.log(inputs);
+                // Attach 'input' event listener to each input
+                inputs.forEach(function(input) {
+                    input.addEventListener('input', function() {
+                        // Check if all inputs are filled
+                        var allFilled = Array.from(inputs).every(function(input) {
+                            return input.value.trim() !== '';
+                        });
+                        console.log("HERE");
+                        // If all inputs are filled, submit the form
+                        if (allFilled) {
+                            document.querySelector('.btn_1').click();
+                        }
+                    });
+                });
+            </script> -->
+            
+        {% endblock %}

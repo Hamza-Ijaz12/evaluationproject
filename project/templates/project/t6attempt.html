@@ -1,0 +1,217 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <section class="main_content dashboard_part large_header_bg">
+
+       {% include 'includes/topbar.html' %}
+
+        <div class="main_content_iner ">
+            <div class="container-fluid p-0">
+                <div class="row justify-content-center">
+                    <div class="col-12">
+                        <div class="dashboard_header mb_50">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="dashboard_header_title">
+                                        <h3>Spelling Question</h3>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="dashboard_breadcam text-end">
+                                        <p><a href="{% url 'home' %}">Dashboard</a> <i class="fas fa-caret-right"></i> Task Attempt
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="white_box mb_30">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-10">
+
+                                    <div class="modal-content cs_modal">
+                                        <div class="modal-header justify-content-center theme_bg_1">
+                                            <h5 class="modal-title text_white">{{task.task_name}}</h5>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="textleft"> <h6> Instructions:</h6>You should Write number like 1 3 in correct answer box and submit</p>
+                                            
+                                            <p class="textleft"><h6>Question:</h6>Students arrange audio segments in the correct order.</p>
+                                            <p class="textleft">Audio 1</p>
+                                            <audio controls id="audio1" controls draggable="true" ondragstart="drag(event)">
+                                                <source src="{{ task.audio1.url }}" type="audio/ogg">
+                                                <!-- <source src="horse.mp3" type="audio/mpeg"> -->
+                                                Your browser does not support the audio element.
+                                            </audio>
+                                            <p class="textleft">Audio 2</p>
+                                            <audio controls id="audio2" controls draggable="true" ondragstart="drag(event)">
+                                                <source src="{{ task.audio2.url }}" type="audio/ogg">
+                                                <!-- <source src="horse.mp3" type="audio/mpeg"> -->
+                                                Your browser does not support the audio element.
+                                            </audio>
+                                            <p class="textleft">Audio 3</p>
+                                            <audio controls id="audio3" controls draggable="true" ondragstart="drag(event)">
+                                                <source src="{{ task.audio3.url }}" type="audio/ogg">
+                                                <!-- <source src="horse.mp3" type="audio/mpeg"> -->
+                                                Your browser does not support the audio element.
+                                            </audio>
+                                            <p class="textleft">Audio 4</p>
+                                            <audio controls id="audio4" controls draggable="true" ondragstart="drag(event)">
+                                                <source src="{{ task.audio4.url }}" type="audio/ogg">
+                                                <!-- <source src="horse.mp3" type="audio/mpeg"> -->
+                                              Your browser does not support the audio element.
+                                              </audio>
+                                              
+                                              <br><br>
+                                              <div class="drop-container row">
+                                                <div class="col-4 col-md-4 col-sm-6">
+                                                    <p>1st</p>
+                                                    <div id="drop1" style="width: 300px; height: 70px;border: 1px solid #aaaaaa; border-radius: 1em;" ondrop="drop(event)" ondragover="allowDrop(event)">
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class="col-4 col-md-4 col-sm-6">
+                                                    <p>2nd</p>
+                                                    <div id="drop2" style="width: 300px; height: 70px;border: 1px solid #aaaaaa; border-radius: 1em;" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                                                </div>
+                                                <div class="col-4 col-md-4 col-sm-6">
+                                                    <p>3rd</p>
+                                                    <div id="drop3" style="width: 300px; height: 70px;border: 1px solid #aaaaaa; border-radius: 1em;" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                                                </div>
+                                                <div class="col-4 col-md-4 col-sm-6 mt-4 mb-2">
+                                                    <p>4th</p>
+                                                    <div id="drop4" style="width: 300px; height: 70px;border: 1px solid #aaaaaa; border-radius: 1em;" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                                                </div>
+                                              </div>
+                                            
+                                              <button class="btn btn-custom mt-4 mb-4" onclick="playAudio('drop1')">Play</button>
+                                                
+                                            <form method="post" action="">
+                                                {% csrf_token %}
+                                                <label for="answer"><b>Answer</b></label>
+                                                <div class="mt-2">
+                                                    <input hidden id="answer1" type="text" name="answer1" class="form-control answer"
+                                                        placeholder="Audio1 order should be">
+                                                </div>
+                                                <div class="mt-2">
+                                                    <input hidden id="answer2" type="text" name="answer2" class="form-control answer"
+                                                        placeholder="Audio2 order should be">
+                                                </div>
+                                                <div class="mt-2">
+                                                    <input hidden id="answer3" type="text" name="answer3" class="form-control answer"
+                                                        placeholder="Audio3 order should be">
+                                                </div>
+                                                <div class="mt-2">
+                                                    <input hidden id="answer4" type="text" name="answer4" class="form-control answer"
+                                                        placeholder="Audio4 order should be">
+                                                </div>
+                                               
+                                                
+                                                
+                                              
+                                                <button type="submit" href="#" class="btn_1 full_width text-center">Submit</button>
+                                                
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Few other changes were made to accomudate the drap and drop functinaloty -->
+        <!-- added by Hamza -->
+        <script>
+          function allowDrop(ev) {
+              ev.preventDefault();
+            }
+            
+            function drag(ev) {
+              ev.dataTransfer.setData("text", ev.target.id);
+              
+            }
+            
+            function drop(ev) {
+                ev.preventDefault();
+                var data = ev.dataTransfer.getData("text");
+                ev.target.appendChild(document.getElementById(data));
+
+                var audioElement = document.getElementById(data);
+                console.log(audioElement.id.charAt(audioElement.id.length - 1));
+
+                // Get the dropzone where the audio was dropped
+                var dropzone = event.target;
+                console.log(dropzone.id.charAt(dropzone.id.length - 1));
+                // dropzone.appendChild(audioElement);
+
+                // Store the association between dropzone and audioElement (you can use a hidden input field)
+                var hiddenInput = document.getElementById("answer"+dropzone.id.charAt(dropzone.id.length - 1));
+                // hiddenInput.type = "hidden";
+                // hiddenInput.name = "audioMappings[]"; // Use an array to store multiple mappings
+                hiddenInput.value = audioElement.id.charAt(audioElement.id.length - 1);
+                hiddenInput.dispatchEvent(new Event('input'));
+                // document.forms[0].appendChild(hiddenInput);
+              
+            }
+
+
+           
+
+            function playAudio(currentindex) {
+        playaudioseq(currentindex);
+    }
+
+    function playaudioseq(currentindex) {
+        var dropzone = document.getElementById(currentindex);
+
+        // Find the first audio element in the drop zone
+        var firstAudioElement = dropzone.querySelector('audio');
+
+        // Check if an audio element is found
+        if (firstAudioElement) {
+            // Set the event listener for the 'ended' event
+            firstAudioElement.addEventListener('ended', function () {
+                // Play the next audio in the drop zone
+                returnindex = updateindex(currentindex);
+                currentindex = returnindex;
+                if (returnindex !== 'drop4') {  // Stop recursion if it's drop4
+                    playaudioseq(returnindex);
+                }
+            });
+
+            // Play the first audio
+            firstAudioElement.play();
+        } else {
+            // If no audio is found, update the index and play in the next drop zone
+            returnindex = updateindex(currentindex);
+            currentindex = returnindex;
+            playaudioseq(currentindex);
+        }
+    }
+
+    function updateindex(currentindex) {
+        // Update the index from drop1 to drop2, and if drop2 is received, make it drop4
+        var index = parseInt(currentindex.charAt(currentindex.length - 1));
+        if (index < 4) {
+            return 'drop' + (index + 1);
+        } else {
+            return 'drop4';  // Assuming drop4 as the last drop zone
+        }
+    }
+
+
+          
+
+
+
+
+            </script>
+        <!-- added by Hamza -->
+        
+        
+        {% endblock %}

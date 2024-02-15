@@ -17,7 +17,7 @@ class CustomUserManager(UserManager):
        
         user.set_password(password)  # Sets the raw password
         print("pasword===============",password)
-        print("pasword+++++++++++++++++++",user.password)
+        print("pasword+++++++++++++++++++======",user.password)
             
 
         # Saving the user

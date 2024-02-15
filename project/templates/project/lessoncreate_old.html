@@ -1,0 +1,14 @@
+{% extends 'base.html' %} 
+{% block content %}
+
+<h1>Lesson Create</h1>
+
+<div>
+    <form method="post" action="">
+        {% csrf_token %}
+        <input type="text" name="lesson_name" value="{% if lesson %}{{ lesson.lesson_name }}{% endif %}" id="">
+        <button type="submit">Create Lesson</button>
+    </form>
+</div>
+
+{% endblock %}

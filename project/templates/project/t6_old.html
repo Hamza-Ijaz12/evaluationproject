@@ -1,0 +1,21 @@
+{% extends 'base.html' %} 
+{% block content %}
+<h1>Arranging audio segments in order</h1>
+
+<br>
+<hr>
+<h2>Instruction for question</h2>
+<p>In task_name Field add task Desicription
+    <br>While filling in answer filed type numbers seprated by commas like 3,2,1,4 which will mean audio1 should be 3 in order, 
+    audio2 should be 2, audio3 should be 1 in order and 4th should be fourth.
+</p><br>
+<form method="post" action="" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+   
+
+    <input type="submit" value="Create"/>
+</form>
+
+{% endblock %}

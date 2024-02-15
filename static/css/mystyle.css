@@ -1,0 +1,59 @@
+.card-forget{
+ padding: 20px !important;   
+}
+
+.select_assign{
+    height: 50px;
+    line-height: 50px;
+    padding: 10px 20px;
+    border: 1px solid #f1f3f5;
+    color: #707070;
+    font-size: 16px;
+    font-weight: 500;
+    background-color: #fff;
+    width: 100%;
+}
+
+.textleft{
+    text-align: left !important;
+}
+
+.imgsize > img{
+    width: 300px;
+    height: 250px;
+}
+.clr-blu{
+    color: #567AED !important;
+}
+.clr > a{
+    background-color: #567AED !important;
+    border-color: #567AED !important;
+}
+
+.spelling{
+    width: 50px;
+    height: 50px;
+    
+ 
+    border: 1px solid black;
+    
+}
+.spelling > input{
+    outline: none;
+    padding: 0 !important;
+    text-align: center;
+    margin: 0 ;
+    border: none;
+    height: 100% !important;
+    
+}
+.spelling-flex{
+    display: flex;
+    gap: 20px;
+}
+
+.btn-custom{
+    background-color: #567AED;
+    color: white;
+    width: 100px;
+}

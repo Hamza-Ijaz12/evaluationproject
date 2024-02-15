@@ -1,42 +1,228 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
+{% load static %}
 {% block content %}
-    <h1>Cohort assign</h1>
-    <h3> Assign task to Student</h3>
-    <br><br>
-    <div>
-      <h2>Assign Task to Indiviual students</h2>
-      <br>
-      <form method="post" action="">
-        {% csrf_token %}
-        <input type="text" hidden name="type" value="id">
-        <select name="student_assign" id="">
-            <option value="">----- Select Student -----</option>
-            {% for student in students %}
-            <option value="{{student.id}}">{{student.email}}</option>
-            {% endfor %}
-            
-           
-        </select>
-        <button type="submit">Assign</button>
-        <br><br>
-        <h2>Assign Task to whole class</h2>
-        <br>
-      </form>
-      <form method="post" action="">
-        {% csrf_token %}
-        <input type="text" hidden name="type" value="class">
-        <select name="class_assign" id="">
-            <option value="">----- Select Student -----</option>
-            {% for cohort in cohorts %}
-            <option value="{{cohort.id}}">{{cohort.classname}}</option>
-            {% endfor %}
-            
-           
-        </select>
-        <button type="submit">Assign</button>
-        
-       
-      </form>
-    </div>
 
-    {% endblock %}
+    <section class="main_content dashboard_part large_header_bg">
+
+       {% include 'includes/topbar.html' %}
+
+        <div class="main_content_iner ">
+            <div class="container-fluid p-0">
+                <div class="row justify-content-center">
+                    <div class="col-12">
+                        <div class="dashboard_header mb_50">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="dashboard_header_title">
+                                        <h3>Task Assign</h3>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="dashboard_breadcam text-end">
+                                        <p><a href="{% url 'home' %}">Dashboard</a> <i class="fas fa-caret-right"></i> Task Assign
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="white_box mb_30">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-6">
+
+                                    <div class="modal-content cs_modal">
+                                        <div class="modal-header justify-content-center theme_bg_1">
+                                            <h5 class="modal-title text_white">Task Assign</h5>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h4 class="text-center">Assign to Students</h4>
+                                            <form method="post" action="" class="mb-5">
+                                                {% csrf_token %}
+                                                <div class="">
+                                                    <input type="text" hidden name="type" value="id">
+                                                    <select name="student_assign" id="" class="select_assign">
+                                                        <option value="">----- Select Student -----</option>
+                                                        {% for student in students %}
+                                                        <option value="{{student.id}}">{{student.email}}</option>
+                                                        {% endfor %}
+                                                        
+                                                        
+                                                       
+                                                    </select>
+                                                </div>
+                                              
+                                                <button type="submit" class="btn_1 full_width text-center">Assign to Student</button>
+                                               
+                                            </form>
+                                            <h4 class="text-center">Assign to Cohorts</h4>
+                                            <form method="post" action="">
+                                                {% csrf_token %}
+                                                <div class="">
+                                                    <input type="text" hidden name="type" value="class">
+                                                    <select name="class_assign" id="" class="select_assign">
+                                                        <option value="">----- Select Cohort -----</option>
+                                                        {% for cohort in cohorts %}
+                                                        <option value="{{cohort.id}}">{{cohort.classname}}</option>
+                                                        {% endfor %}
+                                                        
+                                                    
+                                                    </select>
+                                                </div>
+                                              
+                                                <button type="submit" class="btn_1 full_width text-center">Assign to Cohort</button>
+                                               
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ======= -->
+
+                    <div class="col-lg-12">
+                        <div class="white_box mb_30">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-10">
+
+                                    <div class="white_card card_height_100 mb_30">
+                                        <div class="white_card_header">
+                                        <div class="box_header m-0">
+                                        <div class="main-title">
+                                        <h2 class="m-0">Cohort Students</h2>
+                                        </div>
+                                        </div>
+                                        </div>
+                                        <div class="white_card_body">
+                                        <div class="table-responsive m-b-30">
+                                        <table class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Action</th>
+                                        
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for student in cohort_students %}
+                                            <tr>
+                                                <th scope="row">{{student.username}}</th>
+                                                <td>{{student.email}}</td>
+                                                <td><p>--</p></td>
+                                                
+                                            </tr>
+                                            {% endfor %}
+                                        
+                                        </tbody>
+                                        </table>
+                                        </div>
+                                       
+                                        </div>
+                                               <!-- Pagination -->
+                                <div class="col-lg-12">
+                                    <div class="white_box mb_30">
+                                        <nav aria-label="Page navigation example">
+                                            <ul class="pagination justify-content-center">
+                                                {% if cohort_students.has_previous %}
+                                                    <li class="page-item ">
+                                                        <a class="page-link" href="?page={{ cohort_students.previous_page_number }}">Previous</a>
+                                                    </li>
+                                                {% endif %}
+                                                {% for num in cohort_students.paginator.page_range %}
+                                                    <li class="page-item {% if num == cohort_students.number %} active clr{% endif %}">
+                                                        <a class="page-link"   href="?page={{ num }}">{{ num }}</a>
+                                                    </li>
+                                                {% endfor %}
+                                                {% if cohort_students.has_next %}
+                                                    <li class="page-item">
+                                                        <a class="page-link" href="?page={{ cohort_students.next_page_number }}">Next</a>
+                                                    </li>
+                                                {% endif %}
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                                        <!-- ++++++++++++++++ -->
+                                        <div class="white_card_header">
+                                            <div class="box_header m-0">
+                                            <div class="main-title">
+                                            <h2 class="m-0">Students from other Cohort</h2>
+                                            </div>
+                                            </div>
+                                            </div>
+                                        <div class="white_card_body">
+                                        <div class="table-responsive m-b-30">
+                                        <table class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Action</th>
+                                        
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for student in cohort_students3 %}
+                                            <tr>
+                                                <th scope="row">{{student.username}}</th>
+                                                <td>{{student.email}}</td>
+                                                <td> <form method="post" action="">
+                                                    {% csrf_token %}
+                                                    <div class="">
+                                                        
+                                                        <input type="text" name="type" hidden value="delete">
+                                                        <input type="text" name="student_id" hidden value="{{student.id}}">
+                                                       
+                                                    </div>
+                                                  
+                                                    <button type="submit" style="border: 0px;background-color: transparent;" class=""><i class="ti-trash"></i></button>
+                                                   
+                                                </form></td>
+                                                
+                                            </tr>
+                                            {% endfor %}
+                                        
+                                        </tbody>
+                                        </table>
+                                        </div>
+                                        <!-- Pagination -->
+                                <div class="col-lg-12">
+                                    <div class="white_box mb_30">
+                                        <nav aria-label="Page navigation example">
+                                            <ul class="pagination justify-content-center">
+                                                {% if cohort_students3.has_previous %}
+                                                    <li class="page-item ">
+                                                        <a class="page-link" href="?page={{ cohort_students3.previous_page_number }}">Previous</a>
+                                                    </li>
+                                                {% endif %}
+                                                {% for num in cohort_students3.paginator.page_range %}
+                                                    <li class="page-item {% if num == cohort_students3.number %} active clr{% endif %}">
+                                                        <a class="page-link"   href="?page={{ num }}">{{ num }}</a>
+                                                    </li>
+                                                {% endfor %}
+                                                {% if cohort_students3.has_next %}
+                                                    <li class="page-item">
+                                                        <a class="page-link" href="?page={{ cohort_students3.next_page_number }}">Next</a>
+                                                    </li>
+                                                {% endif %}
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                                       
+                                        </div>
+                                        </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+ 
+{% endblock %}

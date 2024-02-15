@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +27,7 @@ SECRET_KEY = 'django-insecure-c9)kki^hv%k_2c5=yjjbitt!$ra=4n!gfns2**hx9(+t*b!een
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -79,15 +81,21 @@ WSGI_APPLICATION = 'web_project.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'evaluationproject',  # Name of the PostgreSQL database
-        'USER': 'hamza',              # PostgreSQL username
-        'PASSWORD': '12341234',  # Password for the PostgreSQL user
-        'HOST': 'localhost',          # Host where PostgreSQL is running
-        'PORT': '5432',
+   'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'evaluationproject',  # Name of the PostgreSQL database
+#         'USER': 'hamza',              # PostgreSQL username
+#         'PASSWORD': '12341234',  # Password for the PostgreSQL user
+#         'HOST': 'localhost',          # Host where PostgreSQL is running
+#         'PORT': '5432',
+#     }
+# }
 
 
 # Password validation
@@ -142,6 +150,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
+# Will need to update this
 EMAIL_HOST_USER = 'hamzah.ijazh@gmail.com'
 EMAIL_HOST_PASSWORD = 'xvkw kxqu igjq fazu'
 

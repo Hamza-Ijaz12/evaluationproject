@@ -17,7 +17,7 @@ class T2form(ModelForm):
 class T3form(ModelForm):
     class Meta:
         model=T3
-        fields=['task_name','task_img','Option1','Option1_iscorrect','Option2','Option2_iscorrect','Option3','Option3_iscorrect','Option4','Option4_iscorrect']
+        fields=['task_name','task_img','Option1','Option2','Option3','Option4','answer']
 
 
 class T4form(ModelForm):
@@ -28,7 +28,9 @@ class T4form(ModelForm):
 class T5form(ModelForm):
     class Meta:
         model=T5
-        fields=['task_name','sound','image1','image2','image3','image4','answer']
+        fields=['task_name','sound1','sound2','sound3','sound4','sound5','sound6',
+                'image1','image2','image3','image4','image5','image6',
+                'number_of_life','total_images', 'answer']
 
 class T6form(ModelForm):
     class Meta:
@@ -38,11 +40,15 @@ class T6form(ModelForm):
 class T7form(ModelForm):
     class Meta:
         model=T7
-        fields=['task_name','text_blank','answer']
+        fields=['task_name','text_blank','option1','option2','option3','option4','blanks_count','answer']
 
 
 class T8form(ModelForm):
     class Meta:
         model=T8
-        fields=['task_name','sound','answer']
+        fields=['task_name','image','answer']
 
+class SpeechQuestionform(ModelForm):
+    class Meta:
+        model=SpeechQuestion
+        fields=['task_name','sound_1','sound_2','sound_3',"text_answer"]

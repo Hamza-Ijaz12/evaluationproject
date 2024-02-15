@@ -1,0 +1,233 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <section class="main_content dashboard_part large_header_bg">
+
+       {% include 'includes/topbar.html' %}
+
+        <div class="main_content_iner ">
+            <div class="container-fluid p-0">
+                <div class="row justify-content-center">
+                    <div class="col-12">
+                        <div class="dashboard_header mb_50">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="dashboard_header_title">
+                                        <h3>Spelling Question</h3>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="dashboard_breadcam text-end">
+                                        <p><a href="{% url 'home' %}">Dashboard</a> <i class="fas fa-caret-right"></i> Task Attempt
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="white_box mb_30">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-10">
+
+                                    <div class="modal-content cs_modal">
+                                        <div class="modal-header justify-content-center theme_bg_1">
+                                            <h5 class="modal-title text_white">{{task.task_name}}</h5>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p style="text-align: left;"> <h6> Instructions:</h6>Play the audio segment, record your attempt when ready.</p>
+                                            
+                                            <p style="text-align: left;"><h6>Question:</h6>Listen audio and record</p>
+                                            <form method="post" enctype="multipart/form-data">
+                                                {% csrf_token %}
+                                                <p class="textleft mb-2">Sample Audio</p>
+                                                    <audio id="audio1" controls draggable="true" ondragstart="drag(event)">
+                                                        <source src="{{ task.sound_1.url }}" type="audio/ogg">
+                                                        <!-- <source src="horse.mp3" type="audio/mpeg"> -->
+                                                        Your browser does not support the audio element.
+                                                    </audio>
+
+                                                    <!-- <label for="id_audio_file">Audio File:</label>
+                                                    <input type="file" id="id_audio_file" name="audio_file" accept="audio/*" style="display:none;">
+                                                    
+                                                    <button type="button" id="recordButton">Record Audio</button>
+                                                    <button type="button" id="replayButton" style="display:none;">Replay</button> -->
+
+                                                    <!-- <button type="submit" id="submit-button" style="display: none;">Submit</button> -->
+                                                    
+                                                    
+                                                
+                                                    <!-- <button type="submit" href="#" class="btn_1 full_width text-center">Submit</button> -->
+                                                
+                                                    <h1 class="title">Audio Recording API Demo</h1>
+                                                    <i class="start-recording-button fa fa-microphone" aria-hidden="true"></i>
+                                                    <div class="recording-contorl-buttons-container hide">
+                                                        <i class="cancel-recording-button fa fa-times-circle-o" aria-hidden="true"></i>
+                                                        <!-- <div class="recording-elapsed-time">
+                                                            <i class="red-recording-dot fa fa-circle" aria-hidden="true"></i>
+                                                            <p class="elapsed-time"></p>
+                                                        </div> -->
+                                                        <i class="stop-recording-button fa fa fa-circle" aria-hidden="true">Stop</i>
+                                                    </div>
+                                                    <!-- <div class="text-indication-of-audio-playing-container">
+                                                        <p class="text-indication-of-audio-playing hide">Audio is playing<span>.</span><span>.</span><span>.</span></p>
+                                                    </div> -->
+                                                </div>
+                                                <!-- <div class="overlay hide">
+                                                    <div class="browser-not-supporting-audio-recording-box">
+                                                        <p>To record audio, use browsers like Chrome and Firefox that support audio recording.</p>
+                                                        <button type="button" class="close-browser-not-supported-box">Ok.</button>
+                                                    </div>
+                                                </div> -->
+                                            
+                                                <audio controls class="audio-element hide">
+                                                </audio>
+                                           
+                                                
+                                                
+                                              
+                                                <button type="submit" href="#" class="btn_1 full_width text-center">Submit</button>
+                                                
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="upload-element" data-upload-url="{% url 'upload_audio_speech' %}"></div>
+        <!-- <script>
+          document.addEventListener('DOMContentLoaded', function () {
+                const recordButton = document.getElementById('recordButton');
+                const replayButton = document.getElementById('replayButton');
+                const audioFileInput = document.getElementById('id_audio_file');
+                const audioPlayer = new Audio();
+
+                let mediaRecorder;
+                let audioChunks = [];
+
+                recordButton.addEventListener('click', async () => {
+                    try {
+                        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+
+                        mediaRecorder = new MediaRecorder(stream);
+                        
+                        mediaRecorder.ondataavailable = event => {
+                            if (event.data.size > 0) {
+                                audioChunks.push(event.data);
+                            }
+                        };
+                        
+
+                        // mediaRecorder.onstop = () => {
+                        //     const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                        //     const audioFile = new File([audioBlob], 'recorded_audio.wav');
+                        //     console.log(audioFile)
+                         
+
+                        //     // const dataTransfer = new DataTransfer();
+                        //     // dataTransfer.items.add(new File([audioFile], audioFile.name));
+                            
+                        //     // audioFileInput.files = dataTransfer.files;
+                        //     const formData = new FormData();
+                        //     formData.append('audio_file', audioFile);
+                        //     console.log(formData)
+                        //     fetch("{% url 'upload_audio_speech'  %}", {
+                        //         method: 'POST',
+                        //         body: formData,
+                                
+                        //     })
+                        //     .then(response => response.json())
+                        //     .then(data => {
+                        //         console.log(data.message);  // Log success message or handle errors
+                        //     })
+                        //     .catch(error => {
+                        //         console.error('Error uploading audio:', error);
+                        //     });
+                        //     replayButton.style.display = 'inline-block';
+                        // };
+                        mediaRecorder.onstop = () => {
+    // Convert recorded audio chunks to a Blob with WAV format
+    const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+    const audioFile = addAudioInfo(audioBlob);
+    // Create a File object from the Blob
+    // const audioFile = new File([audioFileWithInfo], 'recorded_audio.wav');
+
+    // Display information about the created audio file
+    console.log('Created audio file:', audioFile);
+
+    // Create a Blob URL for the audio file
+    const audioUrl = URL.createObjectURL(audioFile);
+    console.log('Blob URL:', audioUrl);
+
+    // Transfer the audio file to an input element for further use
+    const dataTransfer = new DataTransfer();
+    dataTransfer.items.add(new File([audioFile], audioFile.name));
+    audioFileInput.files = dataTransfer.files;
+
+    // Send the audio file to the server using FormData and fetch
+    const formData = new FormData();
+    formData.append('audio_file', audioFile);
+
+    fetch("{% url 'upload_audio_speech' %}", {
+        method: 'POST',
+        body: formData,
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Upload success:', data.message);
+    })
+    .catch(error => {
+        console.error('Error uploading audio:', error);
+    });
+
+    // Display a replay button after stopping recording
+    replayButton.style.display = 'inline-block';
+};
+
+function addAudioInfo(audioBlob) {
+    // Example: Adding a bit rate of 128 kbps
+    const bitRate = 128000;
+
+    // Calculate the length in seconds
+    const lengthInSeconds = audioChunks.length / (44100 * 2); // Assuming 44.1 kHz sample rate and 16-bit depth
+
+    // Create a new Blob with the added information
+    const updatedBlob = new Blob([audioBlob, `\nBit Rate: ${bitRate} bps\nLength: ${lengthInSeconds.toFixed(2)} seconds`]);
+
+    // Create a File with the updated Blob
+    const audioFileWithInfo = new File([updatedBlob], 'recorded_audio_with_info.wav');
+
+    return audioFileWithInfo;
+}
+
+                        mediaRecorder.start();
+                       
+                        setTimeout(() => {
+                            mediaRecorder.stop();
+                        }, 5000);  // Stop recording after 5 seconds (adjust as needed)
+                    } catch (error) {
+                        console.error('Error accessing microphone:', error);
+                    }
+                });
+
+                // replayButton.addEventListener('click', () => {
+                //     if (audioFileInput.files.length > 0) {
+                //         const audioBlob = audioFileInput.files[0];
+                //         const audioUrl = URL.createObjectURL(audioBlob);
+                //         audioPlayer.src = audioUrl;
+                //         audioPlayer.play();
+                //     }
+                // });
+            });
+        </script> -->
+
+
+        <script src="{% static 'js/audio-recording.js' %}"></script>
+        <script src="{% static 'js/speech.js' %}"></script>
+       
+        {% endblock %}
