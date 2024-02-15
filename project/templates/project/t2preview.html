@@ -134,7 +134,7 @@
                                                 </div>
                                               
                                               <br><br>
-                                            <form method="post" action="">
+                                            <form method="post" action="" id="myForm">
                                                 {% csrf_token %}
                                                 <label for="answer"><b>Answer</b></label>
                                                 <div class="row">
@@ -163,7 +163,7 @@
                                                 
                                                 
                                               
-                                                <button class="btn_1 full_width text-center">Submit</button>
+                                                <button hidden type="submit" href="#" class="btn_1 full_width text-center">Submit</button>
                                                 
                                             </form>
                                         </div>
@@ -205,8 +205,42 @@
                 // hiddenInput.type = "hidden";
                 // hiddenInput.name = "audioMappings[]"; // Use an array to store multiple mappings
                 hiddenInput.value = audioElement.id.charAt(audioElement.id.length - 1);
+                hiddenInput.dispatchEvent(new Event('input'));
                 // document.forms[0].appendChild(hiddenInput);
               
             }
+            </script>
+            <script>
+                function setupInputListeners() {
+                    // Get all input elements with class 'answer'
+                    var inputs = document.querySelectorAll('.answer');
+
+                    // Print a message to the console
+                    console.log('Found ' + inputs.length + ' input elements with class "answer"');
+
+                    // Attach 'input' event listener to each input
+                    inputs.forEach(function (input) {
+                        input.addEventListener('input', inputChangeListener);
+                    });
+                }
+                function inputChangeListener() {
+                    // Print a message to the console when an input changes
+                    console.log('Input changed:', this.value);
+
+                    // Check if all inputs have values
+                    var allFilled = Array.from(document.querySelectorAll('.answer')).every(function (input) {
+                        return input.value.trim() !== '';
+                    });
+
+                    // If all inputs are filled, submit the form
+                    if (allFilled) {
+                        submitForm();
+                    }
+                }
+                function submitForm() {
+                    console.log('Submitting the form');
+                    document.getElementById('myForm').submit();  // Submit the form
+                }
+                setupInputListeners();
             </script>
         {% endblock %}

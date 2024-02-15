@@ -26,6 +26,9 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Added by Hamza -->
+                    <!-- Added by Hamza -->
+
                     <div class="col-lg-12">
                         <div class="white_box mb_30">
                             <div class="row justify-content-center">
@@ -39,6 +42,7 @@
                                             <p style="text-align: left;"> <h6> Instructions:</h6> Students answer questions related to spelling.</p>
                                             
                                             <p style="text-align: left;"><h6>Question:</h6>Listen audio and write the word accordingly</p>
+                                           
                                             <div class="imgsize">
                                                 <img src="{{ task.image.url }}" alt="image1 of question type 5">
                                             </div>
@@ -47,10 +51,19 @@
                                             <form method="post" action="">
                                                 {% csrf_token %}
                                                 <label for="answer"><b>Answer</b></label>
-                                                <div class="mt-2">
-                                                    <input id="answerBox" type="text" name="answer" class="form-control answer"
-                                                        placeholder="Enter your Answer">
+                                                <div class="spelling-flex">
+
+                                                    {% with ''|center:task_length as range_str %}
+                                                    {% for i in range_str %}      
+                                                    
+                                                    <div class="mt-2 spelling-input spelling">
+                                                        <input id="answerBox" type="text" name="answer{{ forloop.counter }}" class="form-control answer"
+                                                        maxlength="1">
+                                                    </div>
+                                                    {% endfor %}
+                                                    {% endwith %}
                                                 </div>
+                                                
                                                 <style>
                                                     #keyboard {
                                                         display: grid;
@@ -123,12 +136,7 @@
                                                     <!-- Add more keys as needed -->
                                                 </div>
 
-
-                                               
-                                                
-                                                
-                                              
-                                                <button class="btn_1 full_width text-center">Submit</button>
+                                                <button type="submit" href="#" class="btn_1 full_width text-center">Submit</button>
                                                 
                                             </form>
                                         </div>

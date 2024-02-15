@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+<style>
+    .hidden {
+        display: none;
+    }
+</style>
 
     <section class="main_content dashboard_part large_header_bg">
 
@@ -40,8 +45,33 @@
                                             
                                             <p class="textleft"><h6>Question:</h6>Students eliminate images based on the sounds they hear.</p>
                                             <p class="textleft">Audio</p>
-                                            <audio controls>
-                                                <source src="{{ task.sound.url }}" type="audio/ogg">
+                                            <audio controls id="audio1" class="">
+                                                <source src="{{ task.sound1.url }}" type="audio/ogg">
+                                                <!-- <source src="horse.mp3" type="audio/mpeg"> -->
+                                                Your browser does not support the audio element.
+                                            </audio>
+                                            <audio controls id="audio2" class="hidden" >
+                                                <source src="{{ task.sound2.url }}" type="audio/ogg">
+                                                <!-- <source src="horse.mp3" type="audio/mpeg"> -->
+                                                Your browser does not support the audio element.
+                                            </audio>
+                                            <audio controls id="audio3" class="hidden" >
+                                                <source src="{{ task.sound3.url }}" type="audio/ogg">
+                                                <!-- <source src="horse.mp3" type="audio/mpeg"> -->
+                                                Your browser does not support the audio element.
+                                            </audio>
+                                            <audio controls id="audio4" class="hidden" >
+                                                <source src="{{ task.sound4.url }}" type="audio/ogg">
+                                                <!-- <source src="horse.mp3" type="audio/mpeg"> -->
+                                                Your browser does not support the audio element.
+                                            </audio>
+                                            <audio controls id="audio5" class="hidden" >
+                                                <source src="{{ task.sound5.url }}" type="audio/ogg">
+                                                <!-- <source src="horse.mp3" type="audio/mpeg"> -->
+                                                Your browser does not support the audio element.
+                                            </audio>
+                                            <audio controls id="audio6" class="hidden" >
+                                                <source src="{{ task.sound6.url }}" type="audio/ogg">
                                                 <!-- <source src="horse.mp3" type="audio/mpeg"> -->
                                                 Your browser does not support the audio element.
                                             </audio>
@@ -50,32 +80,51 @@
 
                                                 <p class="textleft">Image 1</p>
                                                 <div class="imgsize">
-                                                    <img src="{{ task.image1.url }}" alt="image1 of question type 5">
+                                                    <img class="image" id="image1" src="{{ task.image1.url }}" alt="image1 of question type 5">
                                                 </div>
                                             </div>
                                             <div class="col-6 col-md-6 col-sm-12">
                                             <p class="textleft">Image 2</p>
                                             <div class="imgsize">
-                                                <img src="{{ task.image2.url }}" alt="image2 of question type 5">
+                                                <img class="image" id="image2" src="{{ task.image2.url }}" alt="image2 of question type 5">
                                             </div>
                                             </div>
                                             <div class="col-6 col-md-6 col-sm-12">
                                             <p class="textleft">Image 3</p>
                                             <div class="imgsize">
-                                                <img src="{{ task.image3.url }}" alt="image3 of question type 5">
+                                                <img class="image" id="image3" src="{{ task.image3.url }}" alt="image3 of question type 5">
                                             </div>
                                             </div>
                                             <div class="col-6 col-md-6 col-sm-12">
                                             <p class="textleft">Image 4</p>
                                             <div class="imgsize">
-                                                <img  src="{{ task.image4.url }}" alt="image4 of question type 5">
+                                                <img class="image" id="image4"  src="{{ task.image4.url }}" alt="image4 of question type 5">
+                                            </div>
+                                            </div>
+                                            <div class="col-6 col-md-6 col-sm-12">
+                                            <p class="textleft">Image 5</p>
+                                            <div class="imgsize">
+                                                <img class="image" id="image5"  src="{{ task.image5.url }}" alt="image5 of question type 5">
+                                            </div>
+                                            </div>
+                                            <div class="col-6 col-md-6 col-sm-12">
+                                            <p class="textleft">Image 6</p>
+                                            <div class="imgsize">
+                                                <img class="image" id="image4"  src="{{ task.image6.url }}" alt="image6 of question type 5">
                                             </div>
                                             </div>
                                             </div>
                                            
                                               
                                               <br><br>
-                                            <form method="post" action="">
+                                              <!-- Ajax form -->
+                                              <form action="{% url 'task5ajax' %}" method="post">
+                                                {% csrf_token %}
+                                                <input hidden id="imageanswer" type="text" name="imageanswer" >
+                                              </form>
+
+                                              <!-- Form -->
+                                            <form method="post" action="" id="task5form">
                                                 {% csrf_token %}
                                                 <label for="answer"><b>Answer</b></label>
                                                 <div class="row">
@@ -83,30 +132,20 @@
 
                                                     
                                                 <div class="mt-2 col-6 col-md-6 col-sm-12">
-                                                    <input type="text" name="answer1" class="form-control answer"
+                                                    <input hidden id="answer1" type="text" name="answer1" class="form-control answer"
                                                         placeholder="image1 should be eleminated">
                                                 </div>
-                                                <div class="mt-2 col-6 col-md-6 col-sm-12">
-                                                    <input type="text" name="answer2" class="form-control answer"
-                                                        placeholder="image2 should be eleminated">
-                                                </div>
-                                                <div class="mt-2 col-6 col-md-6 col-sm-12">
-                                                    <input type="text" name="answer3" class="form-control answer"
-                                                        placeholder="image3 should be eleminated">
-                                                </div>
-                                                <div class="mt-2 col-6 col-md-6 col-sm-12">
-                                                    <input type="text" name="answer4" class="form-control answer"
-                                                        placeholder="image4 should be eleminated">
-                                                </div>
+                                                
                                                     
                                                 </div>
                                                     
                                                 
                                                 
                                               
-                                                <button  class="btn_1 full_width text-center">Submit</button>
+                                                <button hidden type="submit" href="#" class="btn_1 full_width text-center">Submit</button>
                                                 
                                             </form>
+                                            <input hidden type="number" name="" id="imagesnumber" value="{{ task.total_images }}">
                                         </div>
                                     </div>
                                 </div>
@@ -116,5 +155,97 @@
                 </div>
             </div>
         </div>
+
+
+        <script>
+           document.addEventListener('DOMContentLoaded', function () {
+            // Add event listeners to images upon page loading
+            addEventListenersToImages();
+        });
+
+        function addEventListenersToImages() {
+            // Variable to keep track of the current audio element index
+            var currentAudioIndex = 1;
+            var maxNumberOfImages = document.getElementById('imagesnumber').value
+            
+            // Attach click event handler to all elements with the class "image"
+            var images = document.querySelectorAll('.image');
+            images.forEach(function (image) {
+                image.addEventListener('click', function () {
+                    console.log('Audio ID is',currentAudioIndex)
+                    retunindex = audiohide(currentAudioIndex,maxNumberOfImages)
+                    currentAudioIndex = retunindex
+                    handleImageClick(this);
+                });
+            });
+        }
+        function audiohide(currentAudioIndex,maxNumberOfImages){
+                // Display the next audio element
+                document.getElementById('audio' + currentAudioIndex).classList.add('hidden');
+                if (currentAudioIndex < maxNumberOfImages) {
+
+                    currentAudioIndex++;
+                    console.log('Audio ID is',currentAudioIndex)
+                    document.getElementById('audio' + currentAudioIndex).classList.remove('hidden');
+                }
+            return currentAudioIndex
+        }
+
+        function handleImageClick(clickedImage, currentIndex) {
+            // Get the id of the clicked image and update the input field
+            var clickedImageId = clickedImage.id;
+            document.getElementById('imageanswer').value = clickedImageId;
+
+            // Hide the clicked image
+            clickedImage.style.display = 'none';
+
+        
+           
+            //get imageasnwer value to send to backend 
+            var imageAnswerValue = document.getElementById('imageanswer').value;
+          
+    
+            // Make an AJAX request
+            $.ajax({
+                url:  '/task5ajax/',  // Your Django URL
+                type: 'POST',  // Assuming you want to use a POST request
+                dataType: 'json',  // Expect JSON response
+                data: {
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+                'imageanswer': imageAnswerValue
+                },
+                success: function (data) {
+                    // Handle the success response
+                    console.log('AJAX success:', data);
+                    console.log('AJAX dead:', data.dead);
+                    if (data.dead) {
+                    document.getElementById('answer1').value = 'over';
+                    
+                    // Get the form with id 'task5form' and submit it
+                    var form = document.getElementById('task5form');
+                    form.submit();
+                    
+                    }
+                    if (data.finished && data.dead == false) {
+                    document.getElementById('answer1').value = 'pass';
+                    
+                    // Get the form with id 'task5form' and submit it
+                    var form = document.getElementById('task5form');
+                    form.submit();
+                    
+                    }
+                },
+                error: function (xhr, status, error) {
+                    // Handle the error response
+                    console.error('AJAX error:', error);
+                }
+            });
+
+           }
+
+
+        </script>
+
+        
 
         {% endblock %}

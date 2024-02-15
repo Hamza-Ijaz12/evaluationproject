@@ -105,7 +105,7 @@
                                            
                                               
                                               <br><br>
-                                            <form method="post" action="">
+                                            <form method="post" action="" id="myForm">
                                                 {% csrf_token %}
                                                 <label for="answer"><b>Answer</b></label>
                                                 <div class="row">
@@ -113,7 +113,7 @@
 
                                                     
                                                 <div class="mt-2">
-                                                    <input hidden id="answerBox" text" name="answer" class="form-control answer"
+                                                    <input hidden id="answerBox" type="text" name="answer" class="form-control answer"
                                                         placeholder="Image should match audio...">
                                                 </div>
                                                 
@@ -123,7 +123,7 @@
                                                 
                                                 
                                               
-                                                <button class="btn_1 full_width text-center">Submit</button>
+                                                <button hidden type="submit" href="#" class="btn_1 full_width text-center">Submit</button>
                                                 
                                             </form>
                                         </div>
@@ -139,9 +139,34 @@
             function updateHiddenInput(radioButtonId) {
                 // Get the value of the radio button (you can modify this based on your specific needs)
                 var radioButtonValue = radioButtonId;
+                var hiddenInput = document.getElementById('answerBox');
         
                 // Update the value of the hidden input
                 document.getElementById('answerBox').value = radioButtonValue;
+                // Dispatch input event to input fileds
+                hiddenInput.dispatchEvent(new Event('input'));
             }
         </script>
+         <script>
+            function setupInputListeners() {
+                 // Get all input elements with class 'answer'
+                 var inputs = document.querySelectorAll('.answer');
+
+                 // Print a message to the console
+                 console.log('Found ' + inputs.length + ' input elements with class "answer"');
+
+                 // Attach 'input' event listener to each input
+                 inputs.forEach(function (input) {
+                     input.addEventListener('input', submitForm);
+                 });
+             }
+
+             function submitForm() {
+                 console.log('Submitting the form');
+                 document.getElementById('myForm').submit();  // Submit the form
+             }
+
+             // Call the setup function to start the process
+             setupInputListeners();
+         </script>
         {% endblock %}

@@ -78,15 +78,22 @@
                                             <form method="post" action="">
                                                 {% csrf_token %}
                                                 <!-- <label for="answer"><b>Answer</b></label> -->
-                                                <div class="mt-2">
-                                                    <input hidden id="answerBox" type="text" name="answer" class="form-control answer"
+                                                {% with ''|center:black_count as range_str %}
+                                                    {% for i in range_str %}  
+                                                    <div class="mt-2">
+                                                    <input hidden id="answer{{ forloop.counter }}" type="text" name="answer{{ forloop.counter }}" class="form-control answer"
                                                         placeholder="Enter your Answer">
-                                                </div>
+                                                </div>                
+                                                    
+                                                    {% endfor %}
+                                                    {% endwith %}
+
+                                                
                                                
                                                 
                                                 
                                               
-                                                <button  class="btn_1 full_width text-center">Submit</button>
+                                                <button type="submit" href="#" class="btn_1 full_width text-center">Submit</button>
                                                 
                                             </form>
                                         </div>
@@ -99,21 +106,34 @@
             </div>
         </div>
         <script>
+            // Changes by hamze
             document.addEventListener('DOMContentLoaded', function () {
                 console.log("HERE----")
-        // Delay the replacement by 1000 milliseconds (1 second)
-        setTimeout(function () {
-            // Get the container element
-            var blankContainer = document.getElementById('question');
-            console.log(blankContainer)
-            // Replace [blank] with the desired HTML
-            var replacedHTML = blankContainer.innerHTML.replace(/xxx/g, '<div id="drop1" style="width: 300px; height: 70px; border: 1px solid #aaaaaa; border-radius: 1em;display:inline-block;" ondrop="drop(event)" ondragover="allowDrop(event)"></div>');
+                // Delay the replacement by 1000 milliseconds (1 second)
+                setTimeout(function () {
+                    // Get the container element
+                    var blankContainer = document.getElementById('question');
+                    console.log(blankContainer)
+                    
+                    // Initialize a counter variable
+                    var dropZoneCounter = 0;
 
-            // Set the replaced HTML back to the container
-            blankContainer.innerHTML = replacedHTML;
-        }, 1); // 1000 milliseconds = 1 second
-    });
-    function allowDrop(ev) {
+                    // Replace [blank] with the desired HTML
+                    var replacedHTML = blankContainer.innerHTML.replace(/xxx/g, function(match, index) {
+                        // Calculate the drop zone number based on the index of the match
+                        dropZoneCounter++;
+                        console.log('index',dropZoneCounter)
+                        // Generate the drop zone HTML with the appropriate ID
+                        return '<div id="drop' + dropZoneCounter + '" class="drop-zone" style="width: 300px; height: 70px; border: 1px solid #aaaaaa; border-radius: 1em;display:inline-block;" ondrop="drop(event)" ondragover="allowDrop(event)"></div>';
+                    });
+
+                    // Set the replaced HTML back to the container
+                    blankContainer.innerHTML = replacedHTML;
+                }, 1); // 1000 milliseconds = 1 second
+            });
+            // Changes by hamze end
+
+            function allowDrop(ev) {
               ev.preventDefault();
             }
             
@@ -125,48 +145,65 @@
             
             
             function drop(ev) {
-                ev.preventDefault();
-                var data = ev.dataTransfer.getData("text");
-                var draggedElement = document.getElementById(data);
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    var draggedElement = document.getElementById(data);
+    var dropTarget = ev.target;
 
-                if (draggedElement) {
-                    // Clone the dragged element
-                    var clonedElement = draggedElement.cloneNode(true);
+    // Check if the drop target is the drop zone itself and is empty
+    if (dropTarget.classList.contains("drop-zone") && dropTarget.childElementCount === 0) {
+        var clonedElement = draggedElement.cloneNode(true);
 
-                    // Append the clone to the drop target
-                    ev.target.appendChild(clonedElement);
+        // Append the clone to the drop target
+        dropTarget.appendChild(clonedElement);
 
-                    // Set draggable to true for the cloned element
-                    clonedElement.setAttribute("draggable", true);
+        // Set draggable to true for the cloned element
+        clonedElement.setAttribute("draggable", true);
 
-                    // Add the drag event listener to the cloned element
-                    clonedElement.addEventListener("dragstart", drag);
+        // Add the drag event listener to the cloned element
+        clonedElement.addEventListener("dragstart", drag);
 
-                    // Add an event listener for the drag event on the cloned element
-                    clonedElement.addEventListener("drag", function (event) {
-                        // Remove the element from its parent when dragged
-                        if (event.target.parentNode) {
-                            event.target.parentNode.removeChild(event.target);
-                            var hiddenInput = document.getElementById("answerBox");
-                            hiddenInput.value = "";
-                        }
-                    });
-                    var optionElement = document.getElementById(data);
-                    console.log(optionElement.id.charAt(optionElement.id.length - 1));
+        // Add an event listener for the drag event on the cloned element
+        clonedElement.addEventListener("drag", function (event) {
+            // Remove the element from its parent when dragged
+            var dropZoneId = dropTarget.id.charAt(dropTarget.id.length - 1);
+        
 
-                    // Get the dropzone where the audio was dropped
-                    // var dropzone = event.target;
-                    // console.log(dropzone.id.charAt(dropzone.id.length - 1));
-                    // dropzone.appendChild(audioElement);
-
-                    // Store the association between dropzone and audioElement (you can use a hidden input field)
-                    var hiddenInput = document.getElementById("answerBox");
-                    // hiddenInput.type = "hidden";
-                    // hiddenInput.name = "audioMappings[]"; // Use an array to store multiple mappings
-                    hiddenInput.value = optionElement.innerText;
-                    // document.forms[0].appendChild(hiddenInput);
-                }
+            // Change the value of the corresponding answer field
+            var hiddenInputid = "answer" + dropZoneId;
+            if (event.target.parentNode) {
+                event.target.parentNode.removeChild(event.target);
+                var hiddenInput = document.getElementById(hiddenInputid);
+                hiddenInput.value = "";
             }
+        });
+
+        // Get the original element by ID
+        var optionElement = document.getElementById(data);
+        console.log(optionElement.id.charAt(optionElement.id.length - 1));
+
+        // Store the association between drop zone and audio element (you can use a hidden input field)
+        var dropZoneId = dropTarget.id.charAt(dropTarget.id.length - 1);
+        
+
+        // Change the value of the corresponding answer field
+        var hiddenInputid = "answer" + dropZoneId;
+        
+        var hiddenInput = document.getElementById(hiddenInputid);
+        if (hiddenInput) {
+            hiddenInput.value = optionElement.innerText;
+        }
+
+        // Add the class to the cloned element
+        clonedElement.classList.add("draggable-element");
+    }
+}
+
+
+
+
+
+
    
 
 
