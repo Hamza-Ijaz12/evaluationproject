@@ -62,7 +62,7 @@
                                                     <form method="post" action="{% url 'qeustion_attempt' lesson.id %}">
                                                         {% csrf_token %}
                                                       
-                                                        <button type="submit" class="btn_1 full_width text-center">Attempt Questions</button>
+                                                        <button  type="submit" class="btn_1 full_width text-center">Attempt Questions</button>
                                                     </form>
                                                     </div>
                                                 <!-- Added by Hamza end -->
@@ -145,7 +145,7 @@
                                             {% csrf_token %}
                                             <input type="text" hidden  name="id"  value="{{ task.task.id }}">
                                             <input type="text" hidden name="model"  value="{{ task.model  }}">
-                                            <button class="btn_1 full_width text-center">Attempt</button>
+                                            <button hidden class="btn_1 full_width text-center">Attempt</button>
                                         </form>
                                     </div>
                                     {% else %}
