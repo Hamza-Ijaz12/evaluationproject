@@ -171,27 +171,30 @@
 
         // Find the first audio element in the drop zone
         var firstAudioElement = dropzone.querySelector('audio');
-
+        console.log('current index',currentindex)
         // Check if an audio element is found
         if (firstAudioElement) {
+            firstAudioElement.play();
+
             // Set the event listener for the 'ended' event
             firstAudioElement.addEventListener('ended', function () {
                 // Play the next audio in the drop zone
                 returnindex = updateindex(currentindex);
-                currentindex = returnindex;
-                if (returnindex !== 'drop4') {  // Stop recursion if it's drop4
+                if (returnindex !== 'end') {  // Stop recursion if it's drop4
+                    currentindex = returnindex;
                     playaudioseq(returnindex);
                 }
             });
+            
 
             // Play the first audio
-            firstAudioElement.play();
         } else {
             // If no audio is found, update the index and play in the next drop zone
             returnindex = updateindex(currentindex);
             currentindex = returnindex;
+            if (returnindex !== 'end') {
             playaudioseq(currentindex);
-        }
+        }}
     }
 
     function updateindex(currentindex) {
@@ -200,7 +203,7 @@
         if (index < 4) {
             return 'drop' + (index + 1);
         } else {
-            return 'drop4';  // Assuming drop4 as the last drop zone
+            return 'end';  // Assuming drop4 as the last drop zone
         }
     }
 

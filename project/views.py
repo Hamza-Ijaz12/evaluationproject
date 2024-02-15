@@ -1112,7 +1112,7 @@ def taskassignre(request,pk):
 @login_required(login_url='login')
 def t1preview(request,pk):
     task = T1.objects.get(id=pk)
-    lessonid = request.session['lessonid']
+    
  
         
     context = {'task':task}
@@ -1162,17 +1162,19 @@ def t6preview(request,pk):
 # T7 preview
 @login_required(login_url='login')
 def t7preview(request,pk):
-    task = T7.objects.get(id=pk)   
+    task = T7.objects.get(id=pk)  
+    black_count = int(task.blanks_count) 
         
-    context = {'task':task}
+    context = {'task':task,'black_count':black_count}
     return render(request,'project/t7preview.html',context)
 
 # T8 preview
 @login_required(login_url='login')
 def t8preview(request,pk):
     task = T8.objects.get(id=pk)
+    task_length = len(task.answer)
         
-    context = {'task':task}
+    context = {'task':task,'task_length':task_length}
     return render(request,'project/t8preview.html',context)
 
 
