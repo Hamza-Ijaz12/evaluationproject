@@ -12,6 +12,7 @@ import wave
 import pygame
 import os
 import io
+import random
 
 
 # Create your views here.
@@ -1440,6 +1441,7 @@ def t5ajax(request):
     if request.method == 'POST':
         answerid = request.POST.get('imageanswer')
         check = answerid[5:]
+        
         # print('answer id is ',answerid)
         # print('answer id is ',check)
         answer = request.session['answer_list']
@@ -1464,8 +1466,8 @@ def t5ajax(request):
         request.session['answer_list'] = answer
         # print('answer is',answer)
 
-        
-        data = {'status': 'success','dead':dead,'finished':finished}
+        remainingLives = request.session['life']
+        data = {'status': 'success','dead':dead,'finished':finished,'remainingLives':remainingLives}
         return JsonResponse(data)
 
     # Handle other HTTP methods if needed
@@ -1477,19 +1479,22 @@ def t5ajax(request):
 def t6attempt(request,pk):
     task = T6.objects.get(id=pk)
     lessonid = request.session['lessonid']
+    answer = task.answer.split(',')
+    total_audios = len(answer)
     
     if request.method == 'POST':
-        answer1 = request.POST.get('answer1')
-        answer2 = request.POST.get('answer2')
-        answer3 = request.POST.get('answer3')
-        answer4 = request.POST.get('answer4')
-        answer = task.answer.split(',')
+        result = True
+        for i in range(1,total_audios+1):
+            check = request.POST.get(f'answer{i}')
+            if check != answer[i-1]:
+                result = False
+                break
+        
         # print('+++++=',answer)
         student_id = request.user.id
         student = get_user_model().objects.get(id=student_id)
 
-        score_value = 100 if (answer[0] == str(answer1) and answer[1] == str(answer2) and answer[2] == str(answer3)
-                               and answer[3] == str(answer4)) else 0
+        score_value = 100 if result else 0
 
         score , created = Score.objects.get_or_create(
             student = student,
@@ -1513,7 +1518,7 @@ def t6attempt(request,pk):
         
     
         
-    context = {'task':task}
+    context = {'task':task,'total_audios':total_audios}
     return render(request,'project/t6attempt.html',context)
 
 # T7 Attempt
@@ -1694,16 +1699,19 @@ def que_attempt(request,pk):
                 tasks_list.append(task_dict)
 
         # Print or use the task_list as needed
-        print(tasks_list)
-        firsttask = tasks_list[0]
+        tasks_list2 = random.sample(tasks_list,len(tasks_list))
+        print('Origrnal',tasks_list)
+        print('random',tasks_list2)
+
+        firsttask = tasks_list2[0]
         taskmodel = firsttask['model_name']
         id = firsttask['task_id']
-        tasks_list.pop(0)
+        tasks_list2.pop(0)
         # Saving list in sessions and lesson id in sessions
-        print('after pop',tasks_list)
+        print('after pop',tasks_list2)
         print('in attempt',firsttask)
         print('in attempt',taskmodel)
-        request.session['tasks_list']=tasks_list
+        request.session['tasks_list']=tasks_list2
         request.session['lessonid'] =pk
 
         # redirecting to corresponding task

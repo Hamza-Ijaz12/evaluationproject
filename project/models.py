@@ -279,6 +279,12 @@ class T6(models.Model):
     audio4                   = models.FileField(null=True, upload_to=path_define,
                                 validators=[ FileExtensionValidator(allowed_extensions=['mp3', 'wav']),
                                 ])
+    audio5                   = models.FileField(null=True,blank=True, upload_to=path_define,
+                                validators=[ FileExtensionValidator(allowed_extensions=['mp3', 'wav']),
+                                ])
+    audio6                   = models.FileField(null=True,blank=True, upload_to=path_define,
+                                validators=[ FileExtensionValidator(allowed_extensions=['mp3', 'wav']),
+                                ])
     answer                  = models.CharField(max_length=20,default='')
     lesson                  = models.ForeignKey(Lesson,on_delete=models.CASCADE)
     updated=models.DateTimeField(auto_now=True)

@@ -44,6 +44,7 @@
                                             <p class="textleft"> <h6> Instructions:</h6>You should Write number like 1 3 in correct answer box and submit</p>
                                             
                                             <p class="textleft"><h6>Question:</h6>Students eliminate images based on the sounds they hear.</p>
+                                            <p class="textleft">Number of lives left: <b> <span id="rem_lives">{{ request.session.life }}</span></b></p>
                                             <p class="textleft">Audio</p>
                                             <audio controls id="audio1" class="">
                                                 <source src="{{ task.sound1.url }}" type="audio/ogg">
@@ -226,6 +227,10 @@
                     form.submit();
                     
                     }
+                    var remLivesSpan = document.getElementById('rem_lives');
+                    if (remLivesSpan) {
+                        remLivesSpan.innerText = data.remainingLives; // Assuming 'remainingLives' is the key in data
+                    }
                     if (data.finished && data.dead == false) {
                     document.getElementById('answer1').value = 'pass';
                     
@@ -234,6 +239,7 @@
                     form.submit();
                     
                     }
+                     // Update the value of the span element with id 'rem_lives'
                 },
                 error: function (xhr, status, error) {
                     // Handle the error response

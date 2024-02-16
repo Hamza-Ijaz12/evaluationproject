@@ -35,7 +35,7 @@ class T5form(ModelForm):
 class T6form(ModelForm):
     class Meta:
         model=T6
-        fields=['task_name','audio1','audio2','audio3','audio4','answer']
+        fields=['task_name','audio1','audio2','audio3','audio4','audio5','audio6','answer']
 
 class T7form(ModelForm):
     class Meta:
