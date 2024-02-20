@@ -14,7 +14,7 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="dashboard_header_title">
-                                        <h3>Spelling Question</h3>
+                                        <h3>Arrange Audio Question</h3>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -63,50 +63,54 @@
                                                 <!-- <source src="horse.mp3" type="audio/mpeg"> -->
                                               Your browser does not support the audio element.
                                               </audio>
+                                            {% if task.total_images >= 5 %}
+                                            <p class="textleft">Audio 5</p>
+                                            <audio controls id="audio5" controls draggable="true" ondragstart="drag(event)">
+                                                <source src="{{ task.audio5.url }}" type="audio/ogg">
+                                                <!-- <source src="horse.mp3" type="audio/mpeg"> -->
+                                              Your browser does not support the audio element.
+                                              </audio>
+                                              {% endif %}
+                                            {% if task.total_images == 6 %}
+                                            <p class="textleft">Audio 6</p>
+                                            <audio controls id="audio6" controls draggable="true" ondragstart="drag(event)">
+                                                <source src="{{ task.audio6.url }}" type="audio/ogg">
+                                                <!-- <source src="horse.mp3" type="audio/mpeg"> -->
+                                              Your browser does not support the audio element.
+                                              </audio>
+                                              {% endif %}
+
                                               
                                               <br><br>
                                               <div class="drop-container row">
+                                                {% with ''|center:total_audios  as range_str %}
+                                                    {% for i in range_str %} 
                                                 <div class="col-4 col-md-4 col-sm-6">
-                                                    <p>1st</p>
-                                                    <div id="drop1" style="width: 300px; height: 70px;border: 1px solid #aaaaaa; border-radius: 1em;" ondrop="drop(event)" ondragover="allowDrop(event)">
+                                                    
+                                                    <p class="textleft mb-2 ms-3">Audio {{ forloop.counter }}</p>
+                                                    <div id="drop{{ forloop.counter }}" style="width: 300px; height: 70px;border: 1px solid #aaaaaa; border-radius: 1em;" ondrop="drop(event)" ondragover="allowDrop(event)">
                                                         
                                                     </div>
                                                 </div>
-                                                <div class="col-4 col-md-4 col-sm-6">
-                                                    <p>2nd</p>
-                                                    <div id="drop2" style="width: 300px; height: 70px;border: 1px solid #aaaaaa; border-radius: 1em;" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-                                                </div>
-                                                <div class="col-4 col-md-4 col-sm-6">
-                                                    <p>3rd</p>
-                                                    <div id="drop3" style="width: 300px; height: 70px;border: 1px solid #aaaaaa; border-radius: 1em;" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-                                                </div>
-                                                <div class="col-4 col-md-4 col-sm-6 mt-4 mb-2">
-                                                    <p>4th</p>
-                                                    <div id="drop4" style="width: 300px; height: 70px;border: 1px solid #aaaaaa; border-radius: 1em;" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-                                                </div>
+                                                {% endfor %}
+                                                    {% endwith %}
+                                                
                                               </div>
+                                              
                                             
                                               <button class="btn btn-custom mt-4 mb-4" onclick="playAudio('drop1')">Play</button>
                                                 
                                             <form method="post" action="">
                                                 {% csrf_token %}
                                                 <label for="answer"><b>Answer</b></label>
+                                                {% with ''|center:total_audios  as range_str %}
+                                                    {% for i in range_str %}  
                                                 <div class="mt-2">
-                                                    <input hidden id="answer1" type="text" name="answer1" class="form-control answer"
-                                                        placeholder="Audio1 order should be">
+                                                    <input hidden id="answer{{ forloop.counter }}" type="text" name="answer{{ forloop.counter }}" class="form-control answer"
+                                                        placeholder="Audio{{ forloop.counter }} order should be">
                                                 </div>
-                                                <div class="mt-2">
-                                                    <input hidden id="answer2" type="text" name="answer2" class="form-control answer"
-                                                        placeholder="Audio2 order should be">
-                                                </div>
-                                                <div class="mt-2">
-                                                    <input hidden id="answer3" type="text" name="answer3" class="form-control answer"
-                                                        placeholder="Audio3 order should be">
-                                                </div>
-                                                <div class="mt-2">
-                                                    <input hidden id="answer4" type="text" name="answer4" class="form-control answer"
-                                                        placeholder="Audio4 order should be">
-                                                </div>
+                                                {% endfor %}
+                                                    {% endwith %}
                                                
                                                 
                                                 
@@ -114,6 +118,8 @@
                                                 <button type="submit" href="#" class="btn_1 full_width text-center">Submit</button>
                                                 
                                             </form>
+                                            <!-- To make audios play till end need dynamic number -->
+                                            <input hidden type="number" name="" value="{{ total_audios }}" id="total_audios">
                                         </div>
                                     </div>
                                 </div>
@@ -200,7 +206,8 @@
     function updateindex(currentindex) {
         // Update the index from drop1 to drop2, and if drop2 is received, make it drop4
         var index = parseInt(currentindex.charAt(currentindex.length - 1));
-        if (index < 4) {
+        var total_audios = document.getElementById('total_audios').value
+        if (index < total_audios) {
             return 'drop' + (index + 1);
         } else {
             return 'end';  // Assuming drop4 as the last drop zone

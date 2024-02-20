@@ -30,7 +30,7 @@ class T5form(ModelForm):
         model=T5
         fields=['task_name','sound1','sound2','sound3','sound4','sound5','sound6',
                 'image1','image2','image3','image4','image5','image6',
-                'number_of_life','total_images', 'answer']
+                'number_of_life','total_pairs', 'answer']
 
 class T6form(ModelForm):
     class Meta:

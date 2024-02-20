@@ -95,6 +95,7 @@ def home(request):
 
 
 def loginpage(request):
+    message = ''
     
     if request.method =='POST':
         
@@ -104,7 +105,7 @@ def loginpage(request):
         try:
             user = User.objects.get(email = email)
         except:
-            return HttpResponse("User does not exits")
+            message = "User does not exits"
         user = authenticate(request,email=email,password=password)
         
             
@@ -124,8 +125,8 @@ def loginpage(request):
 
             return redirect('home')
         else:
-            return HttpResponse("Invalid Credantials")
-    context ={}
+            message = "Invalid Credantials"
+    context ={'message':message}
     return render(request,'authuser/login.html',context)
 
 def logoutpage(request):

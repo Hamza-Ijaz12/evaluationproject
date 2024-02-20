@@ -1156,8 +1156,10 @@ def t5preview(request,pk):
 @login_required(login_url='login')
 def t6preview(request,pk):
     task = T6.objects.get(id=pk)
+    answer = task.answer.split(',')
+    total_audios = len(answer)
         
-    context = {'task':task}
+    context = {'task':task,'total_audios':total_audios}
     return render(request,'project/t6preview.html',context)
 
 # T7 preview
@@ -1394,6 +1396,7 @@ def t5attempt(request,pk):
     answer_list = task.answer.split(',')
     request.session['answer_list'] = answer_list
     request.session['life'] = task.number_of_life
+    request.session['t5imagespair'] = task.total_pairs
     
     if request.method == 'POST':
         answer1 = request.POST.get('answer1')
@@ -1418,6 +1421,8 @@ def t5attempt(request,pk):
             del request.session['answer_list']
         if 'life' in request.session:
             del request.session['life']
+        if 't5imagespair' in request.session:
+            del request.session['t5imagespair']
 
         if not created:
             score.score = score_value
@@ -1431,8 +1436,8 @@ def t5attempt(request,pk):
             return redirect('/task_list/')
             
         return redirect(f'/lesson_details/{lessonid}/')
-    audio_display = task.total_images-1
-    context = {'task':task,'audio_display':audio_display}
+    
+    context = {'task':task}
     return render(request,'project/t5attempt.html',context)
 
 # Added by hamza
@@ -1445,8 +1450,10 @@ def t5ajax(request):
         # print('answer id is ',answerid)
         # print('answer id is ',check)
         answer = request.session['answer_list']
+        t5imagespair = request.session['t5imagespair']
         dead = False
         finished = False
+        t5imagespair = t5imagespair -1
         if check == answer[0]:
             pass
         else:
@@ -1461,9 +1468,10 @@ def t5ajax(request):
         #     print('dead status',dead )
         # print('answer is',answer)
         answer.pop(0)
-        if answer == []:
+        if answer == [] or t5imagespair == 0:
             finished = True
         request.session['answer_list'] = answer
+        request.session['t5imagespair'] = t5imagespair
         # print('answer is',answer)
 
         remainingLives = request.session['life']

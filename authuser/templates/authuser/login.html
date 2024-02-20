@@ -38,6 +38,9 @@
                                         </div>
                                         <div class="modal-body">
                                             <form method="post" action="{% url 'login' %}">
+                                                {% if message %}
+                                                <p class="mb-3 textleft" >{{message}}</p>
+                                                {% endif %}
                                                 {% csrf_token %}
                                                 <div class="">
                                                     <input type="text" name="email" class="form-control"

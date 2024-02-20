@@ -19,7 +19,7 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="dashboard_header_title">
-                                        <h3>Spelling Question</h3>
+                                        <h3>Image Elimination Question</h3>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -44,6 +44,7 @@
                                             <p class="textleft"> <h6> Instructions:</h6>You should Write number like 1 3 in correct answer box and submit</p>
                                             
                                             <p class="textleft"><h6>Question:</h6>Students eliminate images based on the sounds they hear.</p>
+                                            <p class="textleft">Number of lives left: <b> <span id="rem_lives">{{ request.session.life }}</span></b></p>
                                             <p class="textleft">Audio</p>
                                             <audio controls id="audio1" class="">
                                                 <source src="{{ task.sound1.url }}" type="audio/ogg">
@@ -65,16 +66,20 @@
                                                 <!-- <source src="horse.mp3" type="audio/mpeg"> -->
                                                 Your browser does not support the audio element.
                                             </audio>
+                                            {% if total_audios >= 5 and task.sound5 %}
                                             <audio controls id="audio5" class="hidden" >
                                                 <source src="{{ task.sound5.url }}" type="audio/ogg">
                                                 <!-- <source src="horse.mp3" type="audio/mpeg"> -->
                                                 Your browser does not support the audio element.
                                             </audio>
+                                            {% endif %}
+                                            {% if total_audios == 6 and task.sound6 %}
                                             <audio controls id="audio6" class="hidden" >
                                                 <source src="{{ task.sound6.url }}" type="audio/ogg">
                                                 <!-- <source src="horse.mp3" type="audio/mpeg"> -->
                                                 Your browser does not support the audio element.
                                             </audio>
+                                            {% endif %}
                                             <div class="row">
                                             <div class="col-6 col-md-6 col-sm-12">
 
@@ -101,18 +106,22 @@
                                                 <img class="image" id="image4"  src="{{ task.image4.url }}" alt="image4 of question type 5">
                                             </div>
                                             </div>
+                                            {% if task.total_pairs >= 5  and task.image5 %}
                                             <div class="col-6 col-md-6 col-sm-12">
                                             <p class="textleft">Image 5</p>
                                             <div class="imgsize">
                                                 <img class="image" id="image5"  src="{{ task.image5.url }}" alt="image5 of question type 5">
                                             </div>
                                             </div>
+                                            {% endif %}
+                                            {% if task.total_pairs == 6 and task.image6 %}
                                             <div class="col-6 col-md-6 col-sm-12">
                                             <p class="textleft">Image 6</p>
                                             <div class="imgsize">
                                                 <img class="image" id="image4"  src="{{ task.image6.url }}" alt="image6 of question type 5">
                                             </div>
                                             </div>
+                                            {% endif %}
                                             </div>
                                            
                                               
@@ -145,7 +154,7 @@
                                                 <button hidden type="submit" href="#" class="btn_1 full_width text-center">Submit</button>
                                                 
                                             </form>
-                                            <input hidden type="number" name="" id="imagesnumber" value="{{ task.total_images }}">
+                                            <input hidden type="number" name="" id="imagesnumber" value="{{ task.total_pairs }}">
                                         </div>
                                     </div>
                                 </div>
@@ -226,6 +235,10 @@
                     form.submit();
                     
                     }
+                    var remLivesSpan = document.getElementById('rem_lives');
+                    if (remLivesSpan) {
+                        remLivesSpan.innerText = data.remainingLives; // Assuming 'remainingLives' is the key in data
+                    }
                     if (data.finished && data.dead == false) {
                     document.getElementById('answer1').value = 'pass';
                     
@@ -234,6 +247,7 @@
                     form.submit();
                     
                     }
+                     // Update the value of the span element with id 'rem_lives'
                 },
                 error: function (xhr, status, error) {
                     // Handle the error response

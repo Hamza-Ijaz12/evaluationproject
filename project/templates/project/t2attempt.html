@@ -14,7 +14,7 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="dashboard_header_title">
-                                        <h3>Spelling Question</h3>
+                                        <h3>Match Audio Question</h3>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -142,19 +142,19 @@
 
                                                     
                                                 <div class="mt-2 col-6 col-md-6 col-sm-12">
-                                                    <input hidden id="answer1" type="text" name="answer1" class="form-control answer"
+                                                    <input  hidden id="answer1" type="text" name="answer1" class="form-control answer"
                                                         placeholder="Audio1 should match Option audio...">
                                                 </div>
                                                 <div class="mt-2 col-6 col-md-6 col-sm-12">
-                                                    <input hidden id="answer2" type="text" name="answer2" class="form-control answer"
+                                                    <input  hidden id="answer2" type="text" name="answer2" class="form-control answer"
                                                         placeholder="Audio2 should match Option audio...">
                                                 </div>
                                                 <div class="mt-2 col-6 col-md-6 col-sm-12">
-                                                    <input hidden id="answer3" type="text" name="answer3" class="form-control answer"
+                                                    <input  hidden id="answer3" type="text" name="answer3" class="form-control answer"
                                                         placeholder="Audio3 should match Option audio...">
                                                 </div>
                                                 <div class="mt-2 col-6 col-md-6 col-sm-12">
-                                                    <input hidden id="answer4" type="text" name="answer4" class="form-control answer"
+                                                    <input  hidden id="answer4" type="text" name="answer4" class="form-control answer"
                                                         placeholder="Audio4 should match Option audio...">
                                                 </div>
                                                     
@@ -187,28 +187,30 @@
             }
             
             function drop(ev) {
-                ev.preventDefault();
-                console.log(ev.dataTransfer.getData("text"))
-                var data = ev.dataTransfer.getData("text");
-                ev.target.appendChild(document.getElementById(data));
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            var draggedElement = document.getElementById(data);
 
-                var audioElement = document.getElementById(data);
-                console.log(audioElement.id.charAt(audioElement.id.length - 1));
-
-                // Get the dropzone where the audio was dropped
-                var dropzone = event.target;
-                console.log(dropzone.id.charAt(dropzone.id.length - 1));
-                // dropzone.appendChild(audioElement);
-
-                // Store the association between dropzone and audioElement (you can use a hidden input field)
-                var hiddenInput = document.getElementById("answer"+dropzone.id.charAt(dropzone.id.length - 1));
-                // hiddenInput.type = "hidden";
-                // hiddenInput.name = "audioMappings[]"; // Use an array to store multiple mappings
-                hiddenInput.value = audioElement.id.charAt(audioElement.id.length - 1);
-                hiddenInput.dispatchEvent(new Event('input'));
-                // document.forms[0].appendChild(hiddenInput);
-              
+            // Check if the dragged element is already in a drop zone
+            var oldDropzoneId = draggedElement.parentNode.id;
+            if (oldDropzoneId.startsWith("drop")) {
+                // Clear the value of the corresponding answer input in the old drop zone
+                var oldHiddenInput = document.getElementById("answer" + oldDropzoneId.charAt(oldDropzoneId.length - 1));
+                oldHiddenInput.value = "";
             }
+
+            // Append the dragged element to the new drop zone
+            ev.target.appendChild(draggedElement);
+
+            // Get the new drop zone where the audio was dropped
+            var newDropzone = ev.target;
+
+            // Store the association between new drop zone and audioElement
+            var hiddenInput = document.getElementById("answer" + newDropzone.id.charAt(newDropzone.id.length - 1));
+            hiddenInput.value = draggedElement.id.charAt(draggedElement.id.length - 1);
+            hiddenInput.dispatchEvent(new Event('input'));
+        }
+
             </script>
             <script>
                 function setupInputListeners() {

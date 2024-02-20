@@ -55,5 +55,7 @@
 .btn-custom{
     background-color: #567AED;
     color: white;
-    width: 100px;
+    width: 200px;
+    padding: 15px 0px;
+    font-size: 18px;
 }

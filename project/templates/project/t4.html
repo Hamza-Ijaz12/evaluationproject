@@ -29,7 +29,7 @@
                     <div class="col-lg-12">
                         <div class="white_box mb_30">
                             <div class="row justify-content-center">
-                                <div class="col-lg-6">
+                                <div class="col-lg-11">
 
                                     <div class="modal-content cs_modal">
                                         <div class="modal-header justify-content-center theme_bg_1">
@@ -42,7 +42,55 @@
                                             </p><br>
                                             <form method="post" action="" enctype="multipart/form-data">
                                                 {% csrf_token %}
-                                                {{ form.as_p }}
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        {{ form.task_name.label_tag }}
+                                                        {{ form.task_name }}
+                                                    </div>
+                                                    
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        {{ form.audio1.label_tag }}
+                                                        {{ form.audio1 }}
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        {{ form.audio2.label_tag }}
+                                                        {{ form.audio2 }}
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        {{ form.audio3.label_tag }}
+                                                        {{ form.audio3 }}
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        {{ form.audio4.label_tag }}
+                                                        {{ form.audio4 }}
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        {{ form.word1.label_tag }}
+                                                        {{ form.word1 }}
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        {{ form.word2.label_tag }}
+                                                        {{ form.word2 }}
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        {{ form.word3.label_tag }}
+                                                        {{ form.word3 }}
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        {{ form.word4.label_tag }}
+                                                        {{ form.word4 }}
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        {{ form.answer.label_tag }}
+                                                        {{ form.answer }}
+                                                    </div>
+                                                    
+                                                </div>
+                                                <!-- {{ form.as_p }} -->
                                                 
                                                 
                                               

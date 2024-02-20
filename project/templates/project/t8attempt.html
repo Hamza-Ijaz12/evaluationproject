@@ -57,7 +57,7 @@
                                                     {% for i in range_str %}      
                                                     
                                                     <div class="mt-2 spelling-input spelling">
-                                                        <input id="answerBox" type="text" name="answer{{ forloop.counter }}" class="form-control answer"
+                                                        <input id="answer{{ forloop.counter }}" type="text" name="answer{{ forloop.counter }}" class="form-control answer"
                                                         maxlength="1">
                                                     </div>
                                                     {% endfor %}
@@ -133,6 +133,7 @@
                                                     <div class="key" onclick="appendToAnswer('ó')">ó</div>
                                                     <div></div>
                                                     <div class="key" onclick="appendToAnswer('ú')">ú</div>
+                                                    <div class="key" onclick="clearAnswer()">clear</div>
                                                     <!-- Add more keys as needed -->
                                                 </div>
 
@@ -148,15 +149,29 @@
                 </div>
             </div>
         </div>
+        
         <script>
+            var task_length = {{ task_length }};
             function appendToAnswer(character) {
-                var answerBox = document.getElementById('answerBox');
-                answerBox.value += character;
+                
+            for (var i = 1; i <= task_length; i++) {
+                var answerInput = document.getElementById('answer' + i);
+                
+                // Check if the answer input has no value
+                if (!answerInput.value) {
+                    answerInput.value = character;
+                    break;  // Stop the loop after setting the value
+                }
             }
+        }
     
             function clearAnswer() {
-                var answerBox = document.getElementById('answerBox');
-                answerBox.value = '';
+                for (var i = 1; i <= task_length; i++) {
+                var answerInput = document.getElementById('answer' + i);
+     
+                    answerInput.value = '';
+                
+            }
             }
         </script>
         {% endblock %}

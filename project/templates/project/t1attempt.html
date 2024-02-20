@@ -14,7 +14,7 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="dashboard_header_title">
-                                        <h3>Spelling Question</h3>
+                                        <h3>Match Images Question</h3>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -247,27 +247,31 @@
             }
             
             function drop(ev) {
-                ev.preventDefault();
-                var data = ev.dataTransfer.getData("text");
-                ev.target.appendChild(document.getElementById(data));
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            var draggedElement = document.getElementById(data);
 
-                var audioElement = document.getElementById(data);
-                console.log(audioElement.id.charAt(audioElement.id.length - 1));
-
-                // Get the dropzone where the audio was dropped
-                var dropzone = event.target;
-                console.log(dropzone.id.charAt(dropzone.id.length - 1));
-                // dropzone.appendChild(audioElement);
-
-                // Store the association between dropzone and audioElement (you can use a hidden input field)
-                var hiddenInput = document.getElementById("answer"+dropzone.id.charAt(dropzone.id.length - 1));
-                // hiddenInput.type = "hidden";
-                // hiddenInput.name = "audioMappings[]"; // Use an array to store multiple mappings
-                hiddenInput.value = audioElement.id.charAt(audioElement.id.length - 1);
-                hiddenInput.dispatchEvent(new Event('input'));
-                // document.forms[0].appendChild(hiddenInput);
-              
+            // Check if the dragged element is already in a drop zone
+            var oldDropzoneId = draggedElement.parentNode.id;
+            if (oldDropzoneId.startsWith("drop")) {
+                // Clear the value of the corresponding answer input in the old drop zone
+                var oldHiddenInput = document.getElementById("answer" + oldDropzoneId.charAt(oldDropzoneId.length - 1));
+                oldHiddenInput.value = "";
             }
+
+            // Get the drop zone where the audio was dropped
+            var dropzone = event.target;
+
+            // Append the dragged element to the new drop zone
+            dropzone.appendChild(draggedElement);
+
+            // Store the association between drop zone and audioElement in the new drop zone
+            var hiddenInput = document.getElementById("answer" + dropzone.id.charAt(dropzone.id.length - 1));
+            hiddenInput.value = draggedElement.id.charAt(draggedElement.id.length - 1);
+            hiddenInput.dispatchEvent(new Event('input'));
+        }
+
+
             </script>
             <!-- MOdified by Hamza -->
             <script>

@@ -29,7 +29,7 @@
                     <div class="col-lg-12">
                         <div class="white_box mb_30">
                             <div class="row justify-content-center">
-                                <div class="col-lg-6">
+                                <div class="col-lg-11">
 
                                     <div class="modal-content cs_modal">
                                         <div class="modal-header justify-content-center theme_bg_1">
@@ -43,7 +43,79 @@
 </p>
                                             <form method="post" action="" enctype="multipart/form-data">
                                                 {% csrf_token %}
-                                                {{ form.as_p }}
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        {{ form.task_name.label_tag }}
+                                                        {{ form.task_name }}
+                                                    </div>
+                                                    
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        {{ form.sound1.label_tag }}
+                                                        {{ form.sound1 }}
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        {{ form.sound2.label_tag }}
+                                                        {{ form.sound2 }}
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        {{ form.sound3.label_tag }}
+                                                        {{ form.sound3 }}
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        {{ form.sound4.label_tag }}
+                                                        {{ form.sound4 }}
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        {{ form.sound5.label_tag }}
+                                                        {{ form.sound5 }}
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        {{ form.sound6.label_tag }}
+                                                        {{ form.sound6 }}
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        {{ form.image1.label_tag }}
+                                                        {{ form.image1 }}
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        {{ form.image2.label_tag }}
+                                                        {{ form.image2 }}
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        {{ form.image3.label_tag }}
+                                                        {{ form.image3 }}
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        {{ form.image4.label_tag }}
+                                                        {{ form.image4 }}
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        {{ form.image5.label_tag }}
+                                                        {{ form.image5 }}
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        {{ form.image6.label_tag }}
+                                                        {{ form.image6 }}
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        {{ form.number_of_life.label_tag }}
+                                                        {{ form.number_of_life }}
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        {{ form.total_pairs.label_tag }}
+                                                        {{ form.total_pairs }}
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        {{ form.answer.label_tag }}
+                                                        {{ form.answer }}
+                                                    </div>
+                                                    
+                                                </div>
+                                                <!-- {{ form.as_p }} -->
                                                 
                                                 
                                               

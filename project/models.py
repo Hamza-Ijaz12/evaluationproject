@@ -227,10 +227,10 @@ class T5(models.Model):
     sound4                   = models.FileField(null=True, upload_to=path_define,
                                 validators=[ FileExtensionValidator(allowed_extensions=['mp3', 'wav']),
                                 ])
-    sound5                   = models.FileField(null=True, upload_to=path_define,
+    sound5                   = models.FileField(null=True,blank=True, upload_to=path_define,
                                 validators=[ FileExtensionValidator(allowed_extensions=['mp3', 'wav']),
                                 ])
-    sound6                   = models.FileField(null=True, upload_to=path_define,
+    sound6                   = models.FileField(null=True,blank=True, upload_to=path_define,
                                 validators=[ FileExtensionValidator(allowed_extensions=['mp3', 'wav']),
                                 ])
     image1                   = models.ImageField(null=True, upload_to=path_define,
@@ -245,15 +245,15 @@ class T5(models.Model):
     image4                   = models.ImageField(null=True, upload_to=path_define,
                                 validators=[ FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png']),
                                 ])
-    image5                   = models.ImageField(null=True, upload_to=path_define,
+    image5                   = models.ImageField(null=True,blank=True, upload_to=path_define,
                                 validators=[ FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png']),
                                 ])
-    image6                   = models.ImageField(null=True, upload_to=path_define,
+    image6                   = models.ImageField(null=True, blank=True, upload_to=path_define,
                                 validators=[ FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png']),
                                 ])
     
     number_of_life           = models.IntegerField(null=True,validators=[MinValueValidator(1, message="Minimum value should be 1.")])
-    total_images             = models.IntegerField(null=True,validators=[MinValueValidator(1, message="Minimum value should be 1.")])
+    total_pairs             = models.IntegerField(null=True,validators=[MinValueValidator(1, message="Minimum value should be 1.")])
     
     answer                  = models.CharField(max_length=255,default='')
     lesson                  = models.ForeignKey(Lesson,on_delete=models.CASCADE)

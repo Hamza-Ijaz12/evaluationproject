@@ -14,7 +14,7 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="dashboard_header_title">
-                                        <h3>Spelling Question</h3>
+                                        <h3>Arrange Audio Question</h3>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -63,7 +63,7 @@
                                                 <!-- <source src="horse.mp3" type="audio/mpeg"> -->
                                               Your browser does not support the audio element.
                                               </audio>
-                                            {% if total_audios >= 5 %}
+                                            {% if task.total_images >= 5 %}
                                             <p class="textleft">Audio 5</p>
                                             <audio controls id="audio5" controls draggable="true" ondragstart="drag(event)">
                                                 <source src="{{ task.audio5.url }}" type="audio/ogg">
@@ -71,7 +71,7 @@
                                               Your browser does not support the audio element.
                                               </audio>
                                               {% endif %}
-                                            {% if total_audios == 6 %}
+                                            {% if task.total_images == 6 %}
                                             <p class="textleft">Audio 6</p>
                                             <audio controls id="audio6" controls draggable="true" ondragstart="drag(event)">
                                                 <source src="{{ task.audio6.url }}" type="audio/ogg">
@@ -87,7 +87,7 @@
                                                     {% for i in range_str %} 
                                                 <div class="col-4 col-md-4 col-sm-6">
                                                     
-                                                    <p>{{ forloop.counter }} audio place</p>
+                                                    <p class="textleft mb-2 ms-3">Audio {{ forloop.counter }}</p>
                                                     <div id="drop{{ forloop.counter }}" style="width: 300px; height: 70px;border: 1px solid #aaaaaa; border-radius: 1em;" ondrop="drop(event)" ondragover="allowDrop(event)">
                                                         
                                                     </div>
