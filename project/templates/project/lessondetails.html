@@ -145,7 +145,7 @@
                                             {% csrf_token %}
                                             <input type="text" hidden  name="id"  value="{{ task.task.id }}">
                                             <input type="text" hidden name="model"  value="{{ task.model  }}">
-                                            <button  class="btn_1 full_width text-center">Attempt</button>
+                                            <button hidden class="btn_1 full_width text-center">Attempt</button>
                                         </form>
                                     </div>
                                     {% else %}
