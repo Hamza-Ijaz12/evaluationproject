@@ -39,46 +39,69 @@
                                             <p class="textleft"> <h6> Instructions:</h6>You should Write number like 1 3 in correct answer box and submit</p>
                                             
                                             <p class="textleft"><h6>Question:</h6>Students arrange audio segments in the correct order.</p>
-                                            <p class="textleft">Audio 1</p>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <p class="textleft">Audio 1</p>
                                             <audio controls id="audio1" controls draggable="true" ondragstart="drag(event)">
                                                 <source src="{{ task.audio1.url }}" type="audio/ogg">
                                                 <!-- <source src="horse.mp3" type="audio/mpeg"> -->
                                                 Your browser does not support the audio element.
                                             </audio>
-                                            <p class="textleft">Audio 2</p>
+                                                </div>
+                                                <div class=col-6>
+                                                    <p class="textleft">Audio 2</p>
                                             <audio controls id="audio2" controls draggable="true" ondragstart="drag(event)">
                                                 <source src="{{ task.audio2.url }}" type="audio/ogg">
                                                 <!-- <source src="horse.mp3" type="audio/mpeg"> -->
                                                 Your browser does not support the audio element.
                                             </audio>
-                                            <p class="textleft">Audio 3</p>
-                                            <audio controls id="audio3" controls draggable="true" ondragstart="drag(event)">
-                                                <source src="{{ task.audio3.url }}" type="audio/ogg">
-                                                <!-- <source src="horse.mp3" type="audio/mpeg"> -->
-                                                Your browser does not support the audio element.
-                                            </audio>
-                                            <p class="textleft">Audio 4</p>
+                                                </div>
+                                                <div class=col-6>
+                                                    <p class="textleft">Audio 3</p>
+                                                    <audio controls id="audio3" controls draggable="true" ondragstart="drag(event)">
+                                                        <source src="{{ task.audio3.url }}" type="audio/ogg">
+                                                        <!-- <source src="horse.mp3" type="audio/mpeg"> -->
+                                                        Your browser does not support the audio element.
+                                                    </audio>
+                                                </div>
+                                                <div class=col-6>
+                                                    <p class="textleft">Audio 4</p>
                                             <audio controls id="audio4" controls draggable="true" ondragstart="drag(event)">
                                                 <source src="{{ task.audio4.url }}" type="audio/ogg">
                                                 <!-- <source src="horse.mp3" type="audio/mpeg"> -->
                                               Your browser does not support the audio element.
                                               </audio>
-                                            {% if task.total_images >= 5 %}
-                                            <p class="textleft">Audio 5</p>
-                                            <audio controls id="audio5" controls draggable="true" ondragstart="drag(event)">
-                                                <source src="{{ task.audio5.url }}" type="audio/ogg">
-                                                <!-- <source src="horse.mp3" type="audio/mpeg"> -->
-                                              Your browser does not support the audio element.
-                                              </audio>
-                                              {% endif %}
-                                            {% if task.total_images == 6 %}
-                                            <p class="textleft">Audio 6</p>
-                                            <audio controls id="audio6" controls draggable="true" ondragstart="drag(event)">
-                                                <source src="{{ task.audio6.url }}" type="audio/ogg">
-                                                <!-- <source src="horse.mp3" type="audio/mpeg"> -->
-                                              Your browser does not support the audio element.
-                                              </audio>
-                                              {% endif %}
+                                                </div>
+                                                 
+                                            {% if total_audios >= 5 %}
+                                                <div class=col-6>
+                                                    <p class="textleft">Audio 5</p>
+                                                    <audio controls id="audio5" controls draggable="true" ondragstart="drag(event)">
+                                                        <source src="{{ task.audio5.url }}" type="audio/ogg">
+                                                        <!-- <source src="horse.mp3" type="audio/mpeg"> -->
+                                                      Your browser does not support the audio element.
+                                                      </audio>
+                                                </div>
+                                                {% endif %}
+                                                {% if total_audios == 6 %}
+                                                <div class=col-6>
+                                                    <p class="textleft">Audio 6</p>
+                                                    <audio controls id="audio6" controls draggable="true" ondragstart="drag(event)">
+                                                        <source src="{{ task.audio6.url }}" type="audio/ogg">
+                                                        <!-- <source src="horse.mp3" type="audio/mpeg"> -->
+                                                      Your browser does not support the audio element.
+                                                      </audio>
+                                                </div>
+                                                {% endif %}
+                                            </div>
+                                            
+                                            
+                                           
+                                           
+                                            
+                                             
+                                            
+                                              
 
                                               
                                               <br><br>
